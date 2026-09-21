@@ -1,6 +1,7 @@
 from flask import Flask, render_template, jsonify
 import subprocess
 import os
+import re
 
 app = Flask(
     __name__,
@@ -71,6 +72,68 @@ def recovery():
     return jsonify(
         run_script("recovery/recovery.sh")
     )
+
+
+@app.route("/api/summary")
+def summary():
+
+    try:
+        containers = subprocess.run(
+            ["docker", "ps", "-aq"],
+            capture_output=True,
+            text=True
+        )
+
+        running = subprocess.run(
+            ["docker", "ps", "-q"],
+            capture_output=True,
+            text=True
+        )
+
+        images = subprocess.run(
+            ["docker", "images", "-q"],
+            capture_output=True,
+            text=True
+        )
+
+        analyzer_result = run_script("analyzer/analyzer.sh")
+
+        total_containers = len(
+            set(containers.stdout.splitlines())
+        )
+
+        running_containers = len(
+            set(running.stdout.splitlines())
+        )
+
+        total_images = len(
+            set(images.stdout.splitlines())
+        )
+
+        health_score = 0
+
+        match = re.search(
+            r"Health Score\s*:\s*(\d+)",
+            analyzer_result["output"]
+        )
+
+        if match:
+            health_score = int(match.group(1))
+
+        return jsonify({
+            "success": True,
+            "containers": total_containers,
+            "running": running_containers,
+            "images": total_images,
+            "health": health_score
+        })
+
+    except Exception as e:
+
+        return jsonify({
+            "success": False,
+            "error": str(e)
+        })
 
 
 if __name__ == "__main__":
