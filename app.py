@@ -136,5 +136,54 @@ def summary():
         })
 
 
+@app.route("/api/resources")
+def resources():
+
+    try:
+
+        result = subprocess.run(
+            [
+                "docker",
+                "stats",
+                "--no-stream",
+                "--format",
+                "{{.Name}}|{{.CPUPerc}}|{{.MemUsage}}|{{.MemPerc}}|{{.NetIO}}"
+            ],
+            capture_output=True,
+            text=True
+        )
+
+        containers = []
+
+        for line in result.stdout.strip().splitlines():
+
+            if not line:
+                continue
+
+            parts = line.split("|")
+
+            if len(parts) == 5:
+
+                containers.append({
+                    "name": parts[0],
+                    "cpu": parts[1],
+                    "memory": parts[2],
+                    "memory_percent": parts[3],
+                    "network": parts[4]
+                })
+
+        return jsonify({
+            "success": True,
+            "containers": containers
+        })
+
+    except Exception as e:
+
+        return jsonify({
+            "success": False,
+            "error": str(e)
+        })
+
+
 if __name__ == "__main__":
     app.run(debug=True)

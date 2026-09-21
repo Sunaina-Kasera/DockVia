@@ -58,6 +58,9 @@ body {
     color: #94a3b8;
 }
 
+
+/* SUMMARY CARDS */
+
 .cards {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -66,7 +69,9 @@ body {
 }
 
 .card,
-.module {
+.module,
+.resource-section,
+.result-section {
     background: #111827;
     border: 1px solid #334155;
     border-radius: 12px;
@@ -89,10 +94,14 @@ body {
     color: #94a3b8;
 }
 
+
+/* MODULES */
+
 .modules {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 20px;
+    margin-bottom: 30px;
 }
 
 .module button {
@@ -109,25 +118,74 @@ body {
     background: #1d4ed8;
 }
 
-@media (max-width: 900px) {
-    .cards,
-    .modules {
-        grid-template-columns: 1fr 1fr;
-    }
+
+/* RESOURCE MONITORING */
+
+.resource-section {
+    margin-bottom: 30px;
 }
 
-@media (max-width: 600px) {
-    .topbar {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 15px;
-    }
-
-    .cards,
-    .modules {
-        grid-template-columns: 1fr;
-    }
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
 }
+
+.section-header h2 {
+    margin-bottom: 6px;
+}
+
+.section-header p {
+    color: #94a3b8;
+}
+
+.live-badge {
+    color: #22c55e;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+
+/* TABLE */
+
+.table-wrapper {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+thead {
+    background: #020617;
+}
+
+th,
+td {
+    padding: 14px 16px;
+    text-align: left;
+    border-bottom: 1px solid #334155;
+}
+
+th {
+    color: #94a3b8;
+    font-size: 13px;
+    text-transform: uppercase;
+}
+
+td {
+    font-size: 14px;
+}
+
+tbody tr:hover {
+    background: #1e293b;
+}
+
+
+/* MODULE OUTPUT */
+
 .result-section {
     margin-top: 30px;
 }
@@ -146,4 +204,33 @@ body {
     overflow-x: auto;
     color: #cbd5e1;
     font-family: monospace;
+}
+
+
+/* RESPONSIVE */
+
+@media (max-width: 900px) {
+
+    .cards,
+    .modules {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 600px) {
+
+    .topbar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    .cards,
+    .modules {
+        grid-template-columns: 1fr;
+    }
+
+    .dashboard {
+        padding: 25px 20px;
+    }
 }

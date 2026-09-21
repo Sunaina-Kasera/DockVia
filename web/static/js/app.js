@@ -53,8 +53,86 @@ async function loadSummary() {
 }
 
 
-/* Load summary when dashboard opens */
+/* Load resource monitoring */
+
+async function loadResources() {
+
+    const table = document.getElementById("resource-table");
+
+    try {
+
+        const response = await fetch("/api/resources");
+        const data = await response.json();
+
+        if (!data.success) {
+
+            table.innerHTML = `
+                <tr>
+                    <td colspan="5">
+                        Failed to load resource data
+                    </td>
+                </tr>
+            `;
+
+            return;
+        }
+
+
+        if (data.containers.length === 0) {
+
+            table.innerHTML = `
+                <tr>
+                    <td colspan="5">
+                        No running containers
+                    </td>
+                </tr>
+            `;
+
+            return;
+        }
+
+
+        table.innerHTML = "";
+
+
+        data.containers.forEach(container => {
+
+            const row = document.createElement("tr");
+
+            row.innerHTML = `
+                <td>${container.name}</td>
+                <td>${container.cpu}</td>
+                <td>${container.memory}</td>
+                <td>${container.memory_percent}</td>
+                <td>${container.network}</td>
+            `;
+
+            table.appendChild(row);
+
+        });
+
+    } catch (error) {
+
+        table.innerHTML = `
+            <tr>
+                <td colspan="5">
+                    Failed to connect to DockVia backend
+                </td>
+            </tr>
+        `;
+
+        console.error(error);
+    }
+}
+
+
+/* Initial dashboard load */
 
 loadSummary();
+loadResources();
+
+
+/* Auto refresh */
 
 setInterval(loadSummary, 10000);
+setInterval(loadResources, 10000);
