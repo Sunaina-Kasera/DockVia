@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>DockVia</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+    <header class="topbar">
+        <div>
+            <h1>DockVia</h1>
+            <p>Docker Operations & Visibility Dashboard</p>
+        </div>
+
+        <div class="status">
+            <span class="dot"></span>
+            Docker Connected
+        </div>
+    </header>
+
+
+    <main class="dashboard">
+
+        <section class="welcome">
+            <h2>Docker Environment Overview</h2>
+            <p>Monitor, analyze and manage your Docker environment.</p>
+        </section>
+
+
+        <section class="cards">
+
+            <div class="card">
+                <h3>Containers</h3>
+                <div class="value">--</div>
+                <p>Total containers</p>
+            </div>
+
+            <div class="card">
+                <h3>Running</h3>
+                <div class="value">--</div>
+                <p>Running containers</p>
+            </div>
+
+            <div class="card">
+                <h3>Images</h3>
+                <div class="value">--</div>
+                <p>Docker images</p>
+            </div>
+
+            <div class="card">
+                <h3>Health Score</h3>
+                <div class="value">--</div>
+                <p>Environment health</p>
+            </div>
+
+        </section>
+
+
+        <section class="modules">
+            <section class="result-section">
+
+    <h2>Module Output</h2>
+
+    <pre id="result">Select a module to view its output.</pre>
+
+</section>
+            <div class="module">
+                <h3>📦 Inventory</h3>
+                <p>View Docker containers, images, volumes and networks.</p>
+                <button onclick="runModule('inventory')">Run Inventory</button>
+            </div>
+
+            <div class="module">
+                <h3>📊 Monitor</h3>
+                <p>Monitor CPU, memory and Docker resource usage.</p>
+                <button onclick="runModule('monitor')">Run Monitor</button>
+            </div>
+
+            <div class="module">
+                <h3>🧠 Analyzer</h3>
+                <p>Analyze environment health and optimization issues.</p>
+                <button onclick="runModule('analyzer')">Run Analyzer</button>
+            </div>
+
+            <div class="module">
+                <h3>🔒 Security</h3>
+                <p>Detect privileged containers, root users and exposed ports.</p>
+                <button onclick="runModule('security')">Run Security Scan</button>
+            </div>
+
+            <div class="module">
+                <h3>🔄 Recovery</h3>
+                <p>Detect and recover stopped Docker containers.</p>
+                <button onclick="runModule('recovery')">Run Recovery</button>
+            </div>
+
+        </section>
+        <section class="result-section">
+
+            <h2>Module Output</h2>
+
+            <pre id="result">Select a module to view its output.</pre>
+
+        </section>
+
+    </main>
+
+
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+
+</body>
+</html>
