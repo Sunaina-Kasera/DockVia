@@ -1,138 +1,137 @@
-async function runModule(module) {
+/* =========================
+   SIDE MENU
+========================= */
 
-    const resultBox = document.getElementById("result");
+function toggleMenu() {
 
-    resultBox.style.display = "block";
-    resultBox.textContent = "Running " + module + "...";
+    const menu =
+        document.getElementById("side-menu");
 
-    try {
+    const overlay =
+        document.getElementById("overlay");
 
-        const response = await fetch("/api/" + module);
-        const data = await response.json();
 
-        if (data.success) {
-            resultBox.textContent = data.output;
-        } else {
-            resultBox.textContent =
-                "ERROR\n\n" + data.error + "\n\n" + data.output;
-        }
+    menu.classList.toggle("active");
 
-    } catch (error) {
+    overlay.classList.toggle("active");
 
-        resultBox.textContent =
-            "Failed to connect to DockVia backend:\n\n" + error;
-    }
 }
 
 
-/* Load dashboard summary */
+function closeMenu() {
+
+    document
+        .getElementById("side-menu")
+        .classList.remove("active");
+
+
+    document
+        .getElementById("overlay")
+        .classList.remove("active");
+
+}
+
+
+/* =========================
+   SEARCH
+========================= */
+
+function toggleSearch() {
+
+    const searchBox =
+        document.getElementById("search-box");
+
+
+    searchBox.classList.toggle("active");
+
+
+    if (searchBox.classList.contains("active")) {
+
+        document
+            .getElementById("search-input")
+            .focus();
+
+    }
+
+}
+
+
+/* =========================
+   DOCKER SUMMARY
+========================= */
 
 async function loadSummary() {
 
     try {
 
-        const response = await fetch("/api/summary");
-        const data = await response.json();
+        const response =
+            await fetch("/api/summary");
+
+
+        const data =
+            await response.json();
+
 
         if (!data.success) {
-            console.error("Failed to load summary:", data.error);
             return;
         }
 
-        const cards = document.querySelectorAll(".card .value");
 
-        cards[0].textContent = data.containers;
-        cards[1].textContent = data.running;
-        cards[2].textContent = data.images;
-        cards[3].textContent = data.health + "/100";
+        document
+            .getElementById("running-count")
+            .textContent =
+            data.running;
 
-    } catch (error) {
 
-        console.error("Dashboard summary error:", error);
+        document
+            .getElementById("image-count")
+            .textContent =
+            data.images;
+
+
+        document
+            .getElementById("health-score")
+            .textContent =
+            data.health + "/100";
+
+
+        const stopped =
+            data.containers - data.running;
+
+
+        document
+            .getElementById("stopped-count")
+            .textContent =
+            stopped >= 0
+                ? stopped
+                : 0;
+
     }
+
+    catch (error) {
+
+        console.error(
+            "DockVia summary error:",
+            error
+        );
+
+    }
+
 }
 
 
-/* Load resource monitoring */
-
-async function loadResources() {
-
-    const table = document.getElementById("resource-table");
-
-    try {
-
-        const response = await fetch("/api/resources");
-        const data = await response.json();
-
-        if (!data.success) {
-
-            table.innerHTML = `
-                <tr>
-                    <td colspan="5">
-                        Failed to load resource data
-                    </td>
-                </tr>
-            `;
-
-            return;
-        }
-
-
-        if (data.containers.length === 0) {
-
-            table.innerHTML = `
-                <tr>
-                    <td colspan="5">
-                        No running containers
-                    </td>
-                </tr>
-            `;
-
-            return;
-        }
-
-
-        table.innerHTML = "";
-
-
-        data.containers.forEach(container => {
-
-            const row = document.createElement("tr");
-
-            row.innerHTML = `
-                <td>${container.name}</td>
-                <td>${container.cpu}</td>
-                <td>${container.memory}</td>
-                <td>${container.memory_percent}</td>
-                <td>${container.network}</td>
-            `;
-
-            table.appendChild(row);
-
-        });
-
-    } catch (error) {
-
-        table.innerHTML = `
-            <tr>
-                <td colspan="5">
-                    Failed to connect to DockVia backend
-                </td>
-            </tr>
-        `;
-
-        console.error(error);
-    }
-}
-
-
-/* Initial dashboard load */
+/* =========================
+   INITIAL LOAD
+========================= */
 
 loadSummary();
-loadResources();
 
 
-/* Auto refresh */
+/* =========================
+   AUTO REFRESH
+========================= */
 
-setInterval(loadSummary, 10000);
-setInterval(loadResources, 10000);
+setInterval(
+    loadSummary,
+    10000
+);

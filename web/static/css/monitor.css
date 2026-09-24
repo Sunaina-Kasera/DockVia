@@ -1,0 +1,642 @@
+/* =========================================================
+   DOCKVIA — MONITOR
+========================================================= */
+
+.monitor-page {
+
+    min-height: calc(100vh - 76px);
+
+    padding: 42px 6vw 60px;
+
+    box-sizing: border-box;
+
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.monitor-header {
+
+    display: flex;
+
+    align-items: flex-end;
+
+    justify-content: space-between;
+
+    gap: 30px;
+
+    margin-bottom: 32px;
+
+}
+
+
+.monitor-eyebrow {
+
+    color: var(--olive);
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    letter-spacing: 2px;
+
+    margin-bottom: 9px;
+
+}
+
+
+.monitor-header h1 {
+
+    color: var(--olive-dark);
+
+    font-size: 52px;
+
+    line-height: 1;
+
+    letter-spacing: -2px;
+
+}
+
+
+.monitor-header p {
+
+    max-width: 560px;
+
+    margin-top: 13px;
+
+    color: var(--muted);
+
+    font-size: 14px;
+
+    line-height: 1.6;
+
+}
+
+
+/* =========================================================
+   LIVE INDICATOR
+========================================================= */
+
+.live-indicator {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    padding: 9px 13px;
+
+    border: 1px solid var(--border);
+
+    border-radius: 20px;
+
+    color: var(--green);
+
+    background: rgba(250, 249, 243, .65);
+
+    font-size: 11px;
+
+    font-weight: 600;
+
+}
+
+
+.live-indicator span {
+
+    width: 7px;
+
+    height: 7px;
+
+    background: var(--green);
+
+    border-radius: 50%;
+
+    animation: monitorPulse 1.7s infinite;
+
+}
+
+
+@keyframes monitorPulse {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: .35;
+    }
+
+}
+
+
+/* =========================================================
+   SUMMARY
+========================================================= */
+
+.monitor-summary {
+
+    display: grid;
+
+    grid-template-columns: repeat(4, 1fr);
+
+    gap: 15px;
+
+    margin-bottom: 34px;
+
+}
+
+
+.monitor-card {
+
+    padding: 19px;
+
+    min-height: 125px;
+
+    background:
+        rgba(250, 249, 243, .72);
+
+    border: 1px solid var(--border);
+
+    border-radius: 15px;
+
+    box-shadow:
+        0 8px 22px
+        rgba(63, 73, 48, .05);
+
+}
+
+
+.monitor-card-top {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+}
+
+
+.monitor-card-top > span {
+
+    color: var(--muted);
+
+    font-size: 9px;
+
+    font-weight: 700;
+
+    letter-spacing: 1.5px;
+
+}
+
+
+.monitor-icon {
+
+    width: 30px;
+
+    height: 30px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 9px;
+
+    background: var(--olive-light);
+
+    color: var(--olive-dark);
+
+    font-size: 13px;
+
+}
+
+
+.monitor-card strong {
+
+    display: block;
+
+    margin-top: 13px;
+
+    color: var(--text);
+
+    font-size: 28px;
+
+    letter-spacing: -.5px;
+
+}
+
+
+.monitor-card small {
+
+    display: block;
+
+    margin-top: 4px;
+
+    color: var(--muted);
+
+    font-size: 10px;
+
+}
+
+
+/* =========================================================
+   SECTION
+========================================================= */
+
+.monitor-section {
+
+    margin-bottom: 30px;
+
+}
+
+
+.monitor-section-heading {
+
+    display: flex;
+
+    align-items: flex-end;
+
+    justify-content: space-between;
+
+    margin-bottom: 12px;
+
+}
+
+
+.monitor-section-heading h2 {
+
+    color: var(--olive-dark);
+
+    font-size: 24px;
+
+    letter-spacing: -.5px;
+
+}
+
+
+.last-updated {
+
+    color: var(--muted);
+
+    font-size: 10px;
+
+}
+
+
+/* =========================================================
+   TABLE
+========================================================= */
+
+.monitor-table-container {
+
+    overflow: hidden;
+
+    background:
+        rgba(250, 249, 243, .72);
+
+    border: 1px solid var(--border);
+
+    border-radius: 14px;
+
+    box-shadow:
+        0 8px 22px
+        rgba(63, 73, 48, .04);
+
+}
+
+
+.monitor-table {
+
+    width: 100%;
+
+    border-collapse: collapse;
+
+}
+
+
+.monitor-table thead {
+
+    background:
+        rgba(220, 226, 205, .35);
+
+}
+
+
+.monitor-table th {
+
+    padding: 13px 17px;
+
+    text-align: left;
+
+    color: var(--olive-dark);
+
+    font-size: 9px;
+
+    text-transform: uppercase;
+
+    letter-spacing: 1px;
+
+}
+
+
+.monitor-table td {
+
+    padding: 15px 17px;
+
+    border-top: 1px solid var(--border);
+
+    color: var(--text);
+
+    font-size: 12px;
+
+}
+
+
+.monitor-table tbody tr {
+
+    transition: background .18s ease;
+
+}
+
+
+.monitor-table tbody tr:hover {
+
+    background:
+        rgba(220, 226, 205, .22);
+
+}
+
+
+.container-name {
+
+    font-weight: 600;
+
+    color: var(--olive-dark);
+
+}
+
+
+.resource-value {
+
+    font-variant-numeric: tabular-nums;
+
+}
+
+
+.cpu-value {
+
+    font-weight: 600;
+
+}
+
+
+.memory-bar {
+
+    width: 90px;
+
+    height: 5px;
+
+    margin-top: 6px;
+
+    overflow: hidden;
+
+    background: var(--olive-light);
+
+    border-radius: 10px;
+
+}
+
+
+.memory-bar span {
+
+    display: block;
+
+    height: 100%;
+
+    background: var(--olive);
+
+    border-radius: inherit;
+
+}
+
+
+.loading-cell {
+
+    padding: 28px !important;
+
+    text-align: center;
+
+    color: var(--muted);
+
+}
+
+
+/* =========================================================
+   DISK
+========================================================= */
+
+.disk-output {
+
+    padding: 18px;
+
+    white-space: pre-wrap;
+
+    font-family:
+        "SFMono-Regular",
+        Consolas,
+        monospace;
+
+    color: var(--olive-dark);
+
+    background:
+        rgba(250, 249, 243, .72);
+
+    border: 1px solid var(--border);
+
+    border-radius: 14px;
+
+    font-size: 11px;
+
+    line-height: 1.7;
+
+}
+
+
+/* =========================================================
+   STATUS
+========================================================= */
+
+.monitor-status {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    padding: 15px 18px;
+
+    margin-bottom: 20px;
+
+    background:
+        rgba(220, 226, 205, .22);
+
+    border: 1px solid var(--border);
+
+    border-radius: 13px;
+
+}
+
+
+.status-dot {
+
+    width: 9px;
+
+    height: 9px;
+
+    flex-shrink: 0;
+
+    background: var(--green);
+
+    border-radius: 50%;
+
+    animation:
+        monitorPulse 1.7s infinite;
+
+}
+
+
+.monitor-status strong {
+
+    display: block;
+
+    color: var(--olive-dark);
+
+    font-size: 12px;
+
+}
+
+
+.monitor-status span {
+
+    display: block;
+
+    margin-top: 3px;
+
+    color: var(--muted);
+
+    font-size: 10px;
+
+}
+
+
+/* =========================================================
+   ERROR
+========================================================= */
+
+.monitor-error {
+
+    display: none;
+
+    padding: 13px 16px;
+
+    color: var(--red);
+
+    background:
+        rgba(163, 108, 80, .08);
+
+    border:
+        1px solid
+        rgba(163, 108, 80, .20);
+
+    border-radius: 10px;
+
+    font-size: 12px;
+
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 900px) {
+
+    .monitor-summary {
+
+        grid-template-columns:
+            repeat(2, 1fr);
+
+    }
+
+}
+
+
+@media (max-width: 600px) {
+
+    .monitor-page {
+
+        padding:
+            30px 18px 45px;
+
+    }
+
+
+    .monitor-header {
+
+        align-items: flex-start;
+
+        flex-direction: column;
+
+    }
+
+
+    .monitor-header h1 {
+
+        font-size: 40px;
+
+    }
+
+
+    .monitor-summary {
+
+        grid-template-columns: 1fr;
+
+    }
+
+
+    .monitor-table-container {
+
+        overflow-x: auto;
+
+    }
+
+
+    .monitor-table {
+
+        min-width: 650px;
+
+    }
+
+}
+/* =========================================================
+   ENABLE PAGE SCROLL
+========================================================= */
+
+html:has(.monitor-page),
+body:has(.monitor-page) {
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.monitor-page {
+    min-height: calc(100vh - 76px);
+    height: auto;
+    overflow: visible;
+}

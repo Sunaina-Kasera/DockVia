@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>DockVia | Recovery</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/recovery.css') }}">
+</head>
+
+<body>
+
+<header class="topbar">
+
+    <div class="brand">
+
+        <div class="brand-logo">
+            <span></span>
+        </div>
+
+        <span>DockVia</span>
+
+    </div>
+
+    <div class="top-actions">
+
+        <button class="icon-btn"
+                onclick="toggleSearch()"
+                aria-label="Search">
+
+            <span class="search-icon"></span>
+
+        </button>
+
+        <button class="icon-btn menu-trigger"
+                onclick="toggleMenu()"
+                aria-label="Menu">
+
+            <span></span>
+            <span></span>
+            <span></span>
+
+        </button>
+
+    </div>
+
+</header>
+
+
+<!-- Search -->
+
+<div id="search-box" class="search-box">
+
+    <input
+        id="search-input"
+        type="text"
+        placeholder="Search DockVia..."
+    >
+
+</div>
+
+
+<!-- Side Menu -->
+
+<aside id="side-menu" class="side-menu">
+
+    <div class="menu-header">
+
+        <div class="menu-brand">
+
+            <div class="brand-logo small">
+                <span></span>
+            </div>
+
+            <span>DockVia</span>
+
+        </div>
+
+        <button class="close-menu"
+                onclick="closeMenu()">
+            ×
+        </button>
+
+    </div>
+
+
+    <nav class="menu-nav">
+
+        <a href="/inventory" onclick="closeMenu()">
+            <span class="nav-icon inventory-icon"></span>
+            <span>Inventory</span>
+        </a>
+
+        <a href="/monitor" onclick="closeMenu()">
+            <span class="nav-icon monitor-icon"></span>
+            <span>Monitor</span>
+        </a>
+
+        <a href="/analyzer" onclick="closeMenu()">
+            <span class="nav-icon analyzer-icon"></span>
+            <span>Analyzer</span>
+        </a>
+
+        <a href="/security" onclick="closeMenu()">
+            <span class="nav-icon security-icon"></span>
+            <span>Security</span>
+        </a>
+
+        <a href="/recovery" onclick="closeMenu()">
+            <span class="nav-icon recovery-icon"></span>
+            <span>Recovery</span>
+        </a>
+
+        <a href="/reports" onclick="closeMenu()">
+            <span class="nav-icon reports-icon"></span>
+            <span>Reports</span>
+        </a>
+
+    </nav>
+
+</aside>
+
+
+<div id="overlay"
+     class="overlay"
+     onclick="closeMenu()">
+</div>
+
+
+<main class="recovery-page">
+
+
+    <!-- Header -->
+
+    <section class="recovery-header">
+
+        <div>
+
+            <p class="page-label">
+                DOCKER RECOVERY
+            </p>
+
+            <h1>Recovery</h1>
+
+            <p class="page-description">
+                Detect stopped containers and automatically
+                attempt to restore their services.
+            </p>
+
+        </div>
+
+
+        <button
+            id="recovery-btn"
+            class="recovery-btn"
+            onclick="runRecovery()">
+
+            ↻ Run Recovery
+
+        </button>
+
+    </section>
+
+
+    <!-- Recovery Status -->
+
+    <section class="recovery-status">
+
+        <div class="status-card">
+
+            <div id="status-icon"
+                 class="status-icon">
+
+                ↻
+
+            </div>
+
+            <div>
+
+                <span class="card-label">
+                    RECOVERY STATUS
+                </span>
+
+                <strong id="recovery-status-text">
+                    Ready
+                </strong>
+
+                <p id="recovery-time">
+                    No recovery action performed yet
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- Metrics -->
+
+    <section class="recovery-grid">
+
+
+        <div class="recovery-card">
+
+            <div class="recovery-card-icon warning">
+                !
+            </div>
+
+            <div>
+
+                <span class="metric-label">
+                    STOPPED CONTAINERS
+                </span>
+
+                <strong id="stopped-count">
+                    --
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <div class="recovery-card">
+
+            <div class="recovery-card-icon success">
+                ✓
+            </div>
+
+            <div>
+
+                <span class="metric-label">
+                    RECOVERED
+                </span>
+
+                <strong id="recovered-count">
+                    --
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <div class="recovery-card">
+
+            <div class="recovery-card-icon failed">
+                ×
+            </div>
+
+            <div>
+
+                <span class="metric-label">
+                    FAILED
+                </span>
+
+                <strong id="failed-count">
+                    --
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <div class="recovery-card">
+
+            <div class="recovery-card-icon">
+                ●
+            </div>
+
+            <div>
+
+                <span class="metric-label">
+                    RUNNING AFTER RECOVERY
+                </span>
+
+                <strong id="running-count">
+                    --
+                </strong>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- Recovery Actions -->
+
+    <section class="actions-section">
+
+        <div class="section-heading">
+
+            <div>
+
+                <span class="page-label">
+                    RECOVERY ACTIONS
+                </span>
+
+                <h2>Container Recovery</h2>
+
+            </div>
+
+        </div>
+
+
+        <div id="recovery-actions"
+             class="recovery-actions">
+
+            <div class="empty-state">
+
+                Run recovery to check stopped containers.
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- Raw Output -->
+
+    <section class="recovery-output-section">
+
+        <div class="section-heading">
+
+            <div>
+
+                <span class="page-label">
+                    RAW RECOVERY LOG
+                </span>
+
+                <h2>Recovery Output</h2>
+
+            </div>
+
+        </div>
+
+
+        <pre id="recovery-output"
+             class="recovery-output">No recovery scan available.</pre>
+
+    </section>
+
+
+    <div id="recovery-error"
+         class="recovery-error">
+    </div>
+
+
+</main>
+
+
+<script src="{{ url_for('static', filename='js/app.js') }}"></script>
+
+
+<script>
+
+async function runRecovery() {
+
+    const button =
+        document.getElementById("recovery-btn");
+
+    const errorBox =
+        document.getElementById("recovery-error");
+
+    const statusText =
+        document.getElementById(
+            "recovery-status-text"
+        );
+
+    const statusIcon =
+        document.getElementById(
+            "status-icon"
+        );
+
+
+    errorBox.style.display = "none";
+
+    button.disabled = true;
+
+    button.textContent =
+        "↻ Recovering...";
+
+    statusText.textContent =
+        "Running";
+
+    statusIcon.textContent =
+        "↻";
+
+
+    try {
+
+        const response =
+            await fetch("/api/recovery");
+
+        const data =
+            await response.json();
+
+
+        if (!data.success) {
+
+            throw new Error(
+                data.error ||
+                "Recovery failed."
+            );
+
+        }
+
+
+        const output =
+            data.output;
+
+
+        document.getElementById(
+            "recovery-output"
+        ).textContent = output;
+
+
+        parseRecoveryOutput(
+            output
+        );
+
+
+        statusText.textContent =
+            "Recovery Complete";
+
+        statusIcon.textContent =
+            "✓";
+
+
+        document.getElementById(
+            "recovery-time"
+        ).textContent =
+            "Completed " +
+            new Date().toLocaleTimeString();
+
+
+    } catch (error) {
+
+        console.error(
+            "DockVia recovery error:",
+            error
+        );
+
+
+        statusText.textContent =
+            "Recovery Failed";
+
+        statusIcon.textContent =
+            "!";
+
+
+        errorBox.textContent =
+            "Unable to run recovery: " +
+            error.message;
+
+        errorBox.style.display =
+            "block";
+
+
+    } finally {
+
+        button.disabled = false;
+
+        button.textContent =
+            "↻ Run Recovery";
+
+    }
+
+}
+
+
+function parseRecoveryOutput(output) {
+
+
+    /*
+     * Recovery summary
+     */
+
+    const recoveredMatch =
+        output.match(
+            /Recovered\s*:\s*(\d+)/
+        );
+
+
+    const failedMatch =
+        output.match(
+            /Failed\s*:\s*(\d+)/
+        );
+
+
+    /*
+     * Count stopped containers
+     */
+
+    const stoppedMatch =
+        output.match(
+            /Stopped Containers\s*:\s*(\d+)/
+        );
+
+
+    const stopped =
+        stoppedMatch
+            ? Number(stoppedMatch[1])
+            : countRecoveryTargets(output);
+
+
+    const recovered =
+        recoveredMatch
+            ? Number(recoveredMatch[1])
+            : 0;
+
+
+    const failed =
+        failedMatch
+            ? Number(failedMatch[1])
+            : 0;
+
+
+    document.getElementById(
+        "stopped-count"
+    ).textContent =
+        stopped;
+
+
+    document.getElementById(
+        "recovered-count"
+    ).textContent =
+        recovered;
+
+
+    document.getElementById(
+        "failed-count"
+    ).textContent =
+        failed;
+
+
+    /*
+     * Get current running containers
+     */
+
+    loadRunningCount();
+
+
+    renderRecoveryActions(
+        output,
+        recovered,
+        failed
+    );
+
+}
+
+
+function countRecoveryTargets(output) {
+
+
+    const sectionStart =
+        output.indexOf(
+            "Recovery Actions"
+        );
+
+
+    const sectionEnd =
+        output.indexOf(
+            "Recovery Summary"
+        );
+
+
+    if (
+        sectionStart === -1 ||
+        sectionEnd === -1
+    ) {
+
+        return 0;
+
+    }
+
+
+    const section =
+        output.substring(
+            sectionStart,
+            sectionEnd
+        );
+
+
+    return (
+        section.match(
+            /Starting .* \.\.\./g
+        ) || []
+    ).length;
+
+}
+
+
+function renderRecoveryActions(
+    output,
+    recovered,
+    failed
+) {
+
+
+    const container =
+        document.getElementById(
+            "recovery-actions"
+        );
+
+
+    const lines =
+        output
+            .split("\n")
+            .map(line => line.trim())
+            .filter(line =>
+                line.includes("Starting ")
+            );
+
+
+    if (lines.length === 0) {
+
+
+        container.innerHTML = `
+
+            <div class="empty-state">
+
+                No stopped containers were found.
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    container.innerHTML =
+        lines.map(line => {
+
+
+            const success =
+                line.includes("Success");
+
+
+            return `
+
+                <div class="recovery-action
+                    ${success ? "success" : "failed"}">
+
+                    <div class="action-icon">
+
+                        ${success ? "✓" : "×"}
+
+                    </div>
+
+
+                    <div>
+
+                        <strong>
+                            ${escapeHtml(line)}
+                        </strong>
+
+                        <p>
+                            ${
+                                success
+                                ? "Container was successfully started."
+                                : "Container could not be started."
+                            }
+                        </p>
+
+                    </div>
+
+                </div>
+
+            `;
+
+        }).join("");
+
+}
+
+
+async function loadRunningCount() {
+
+    try {
+
+        const response =
+            await fetch("/api/summary");
+
+        const data =
+            await response.json();
+
+
+        if (data.success) {
+
+            document.getElementById(
+                "running-count"
+            ).textContent =
+                data.running;
+
+        }
+
+    } catch (error) {
+
+        console.error(
+            "Running count error:",
+            error
+        );
+
+    }
+
+}
+
+
+function escapeHtml(value) {
+
+    return String(value)
+
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+
+        .replace(
+            /</g,
+            "&lt;"
+        )
+
+        .replace(
+            />/g,
+            "&gt;"
+        )
+
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+
+        .replace(
+            /'/g,
+            "&#039;"
+        );
+
+}
+
+
+runRecovery();
+
+</script>
+
+</body>
+</html>

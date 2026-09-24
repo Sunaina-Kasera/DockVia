@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>DockVia | Security</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/security.css') }}">
+</head>
+
+<body>
+
+<header class="topbar">
+
+    <div class="brand">
+
+        <div class="brand-logo">
+            <span></span>
+        </div>
+
+        <span>DockVia</span>
+
+    </div>
+
+    <div class="top-actions">
+
+        <button class="icon-btn"
+                onclick="toggleSearch()"
+                aria-label="Search">
+            <span class="search-icon"></span>
+        </button>
+
+        <button class="icon-btn menu-trigger"
+                onclick="toggleMenu()"
+                aria-label="Menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+
+    </div>
+
+</header>
+
+
+<!-- Search -->
+
+<div id="search-box" class="search-box">
+
+    <input
+        id="search-input"
+        type="text"
+        placeholder="Search DockVia..."
+    >
+
+</div>
+
+
+<!-- Side Menu -->
+
+<aside id="side-menu" class="side-menu">
+
+    <div class="menu-header">
+
+        <div class="menu-brand">
+
+            <div class="brand-logo small">
+                <span></span>
+            </div>
+
+            <span>DockVia</span>
+
+        </div>
+
+        <button class="close-menu"
+                onclick="closeMenu()">
+            ×
+        </button>
+
+    </div>
+
+
+    <nav class="menu-nav">
+
+        <a href="/inventory" onclick="closeMenu()">
+            <span class="nav-icon inventory-icon"></span>
+            <span>Inventory</span>
+        </a>
+
+        <a href="/monitor" onclick="closeMenu()">
+            <span class="nav-icon monitor-icon"></span>
+            <span>Monitor</span>
+        </a>
+
+        <a href="/analyzer" onclick="closeMenu()">
+            <span class="nav-icon analyzer-icon"></span>
+            <span>Analyzer</span>
+        </a>
+
+        <a href="/security" onclick="closeMenu()">
+            <span class="nav-icon security-icon"></span>
+            <span>Security</span>
+        </a>
+
+        <a href="/recovery" onclick="closeMenu()">
+            <span class="nav-icon recovery-icon"></span>
+            <span>Recovery</span>
+        </a>
+
+        <a href="/reports" onclick="closeMenu()">
+            <span class="nav-icon reports-icon"></span>
+            <span>Reports</span>
+        </a>
+
+    </nav>
+
+</aside>
+
+
+<div id="overlay"
+     class="overlay"
+     onclick="closeMenu()">
+</div>
+
+
+<main class="security-page">
+
+
+    <!-- Header -->
+
+    <section class="security-header">
+
+        <div>
+
+            <p class="page-label">
+                DOCKER SECURITY
+            </p>
+
+            <h1>Security</h1>
+
+            <p class="page-description">
+                Audit running containers for common Docker
+                security risks and configuration issues.
+            </p>
+
+        </div>
+
+
+        <button
+            id="scan-btn"
+            class="scan-btn"
+            onclick="runSecurityScan()">
+
+            ⛨ Run Security Scan
+
+        </button>
+
+    </section>
+
+
+    <!-- Security Status -->
+
+    <section class="security-status">
+
+        <div class="status-card">
+
+            <div class="status-icon">
+                ✓
+            </div>
+
+            <div>
+
+                <span class="card-label">
+                    SECURITY SCAN
+                </span>
+
+                <strong id="security-status-text">
+                    Ready
+                </strong>
+
+                <p id="security-time">
+                    No scan performed yet
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- Security Metrics -->
+
+    <section class="security-grid">
+
+
+        <div class="security-card">
+
+            <div class="security-card-icon">
+                !
+            </div>
+
+            <div>
+
+                <span class="metric-label">
+                    PRIVILEGED CONTAINERS
+                </span>
+
+                <strong id="privileged-count">
+                    --
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <div class="security-card">
+
+            <div class="security-card-icon">
+                !
+            </div>
+
+            <div>
+
+                <span class="metric-label">
+                    ROOT USER CONTAINERS
+                </span>
+
+                <strong id="root-count">
+                    --
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <div class="security-card">
+
+            <div class="security-card-icon">
+                ↗
+            </div>
+
+            <div>
+
+                <span class="metric-label">
+                    EXPOSED PORTS
+                </span>
+
+                <strong id="port-count">
+                    --
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <div class="security-card">
+
+            <div class="security-card-icon safe">
+                ✓
+            </div>
+
+            <div>
+
+                <span class="metric-label">
+                    RUNNING CONTAINERS
+                </span>
+
+                <strong id="running-count">
+                    --
+                </strong>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- Findings -->
+
+    <section class="findings-section">
+
+        <div class="section-heading">
+
+            <div>
+
+                <span class="page-label">
+                    SECURITY FINDINGS
+                </span>
+
+                <h2>Container Security</h2>
+
+            </div>
+
+        </div>
+
+
+        <div id="security-findings"
+             class="security-findings">
+
+            <div class="empty-state">
+
+                Run a security scan to inspect
+                your Docker containers.
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- Raw Output -->
+
+    <section class="security-output-section">
+
+        <div class="section-heading">
+
+            <div>
+
+                <span class="page-label">
+                    RAW SCAN
+                </span>
+
+                <h2>Security Scan Output</h2>
+
+            </div>
+
+        </div>
+
+
+        <pre id="security-output"
+             class="security-output">No scan available.</pre>
+
+    </section>
+
+
+    <div id="security-error"
+         class="security-error">
+    </div>
+
+
+</main>
+
+
+<script src="{{ url_for('static', filename='js/app.js') }}"></script>
+
+
+<script>
+
+async function runSecurityScan() {
+
+    const button =
+        document.getElementById("scan-btn");
+
+    const errorBox =
+        document.getElementById("security-error");
+
+    const statusText =
+        document.getElementById(
+            "security-status-text"
+        );
+
+    errorBox.style.display = "none";
+
+    button.disabled = true;
+    button.textContent = "⛨ Scanning...";
+
+    statusText.textContent = "Scanning";
+
+
+    try {
+
+        const response =
+            await fetch("/api/security");
+
+        const data =
+            await response.json();
+
+
+        if (!data.success) {
+
+            throw new Error(
+                data.error || "Security scan failed."
+            );
+
+        }
+
+
+        document.getElementById(
+            "security-output"
+        ).textContent = data.output;
+
+
+        parseSecurityOutput(
+            data.output
+        );
+
+
+        statusText.textContent =
+            "Scan Complete";
+
+
+        document.getElementById(
+            "security-time"
+        ).textContent =
+            "Scanned " +
+            new Date().toLocaleTimeString();
+
+
+    } catch (error) {
+
+        console.error(
+            "DockVia security error:",
+            error
+        );
+
+        statusText.textContent =
+            "Scan Failed";
+
+
+        errorBox.textContent =
+            "Unable to run security scan: " +
+            error.message;
+
+        errorBox.style.display = "block";
+
+    } finally {
+
+        button.disabled = false;
+
+        button.textContent =
+            "⛨ Run Security Scan";
+
+    }
+
+}
+
+
+function parseSecurityOutput(output) {
+
+
+    /*
+     * Running containers
+     */
+
+    const runningMatch =
+        output.match(
+            /Running Containers\s*:\s*(\d+)/
+        );
+
+
+    document.getElementById(
+        "running-count"
+    ).textContent =
+        runningMatch
+            ? runningMatch[1]
+            : "--";
+
+
+    /*
+     * Privileged containers
+     */
+
+    const privilegedMatch =
+        output.match(
+            /Privileged Count\s*:\s*(\d+)/
+        );
+
+
+    const privilegedCount =
+        privilegedMatch
+            ? privilegedMatch[1]
+            : countPrivileged(output);
+
+
+    document.getElementById(
+        "privileged-count"
+    ).textContent =
+        privilegedCount;
+
+
+    /*
+     * Root containers
+     */
+
+    const rootMatch =
+        output.match(
+            /Root Containers\s*:\s*(\d+)/
+        );
+
+
+    const rootCount =
+        rootMatch
+            ? rootMatch[1]
+            : countRootContainers(output);
+
+
+    document.getElementById(
+        "root-count"
+    ).textContent =
+        rootCount;
+
+
+    /*
+     * Exposed ports
+     */
+
+    const portCount =
+        countExposedPorts(output);
+
+
+    document.getElementById(
+        "port-count"
+    ).textContent =
+        portCount;
+
+
+    renderFindings(
+        output,
+        privilegedCount,
+        rootCount,
+        portCount
+    );
+
+}
+
+
+function countPrivileged(output) {
+
+    const sectionStart =
+        output.indexOf(
+            "Privileged Containers"
+        );
+
+    const sectionEnd =
+        output.indexOf(
+            "Root User Check"
+        );
+
+
+    if (
+        sectionStart === -1 ||
+        sectionEnd === -1
+    ) {
+        return 0;
+    }
+
+
+    const section =
+        output.substring(
+            sectionStart,
+            sectionEnd
+        );
+
+
+    return (
+        section.match(/⚠/g) || []
+    ).length;
+
+}
+
+
+function countRootContainers(output) {
+
+    const sectionStart =
+        output.indexOf(
+            "Root User Check"
+        );
+
+    const sectionEnd =
+        output.indexOf(
+            "Exposed Ports"
+        );
+
+
+    if (
+        sectionStart === -1 ||
+        sectionEnd === -1
+    ) {
+        return 0;
+    }
+
+
+    const section =
+        output.substring(
+            sectionStart,
+            sectionEnd
+        );
+
+
+    return (
+        section.match(/⚠/g) || []
+    ).length;
+
+}
+
+
+function countExposedPorts(output) {
+
+    const sectionStart =
+        output.indexOf(
+            "Exposed Ports"
+        );
+
+
+    if (sectionStart === -1) {
+        return 0;
+    }
+
+
+    const section =
+        output.substring(
+            sectionStart
+        );
+
+
+    const lines =
+        section
+            .split("\n")
+            .map(line => line.trim())
+            .filter(line =>
+                line &&
+                !line.startsWith("Exposed Ports") &&
+                !line.startsWith("----") &&
+                !line.startsWith("====") &&
+                !line.includes("Security Scan Completed")
+            );
+
+
+    /*
+     * Count only lines that contain
+     * Docker port mapping information.
+     */
+
+    return lines.filter(line =>
+        line.includes("->") ||
+        line.includes(":")
+    ).length;
+
+}
+
+
+function renderFindings(
+    output,
+    privileged,
+    root,
+    ports
+) {
+
+    const container =
+        document.getElementById(
+            "security-findings"
+        );
+
+
+    const findings = [];
+
+
+    if (Number(privileged) > 0) {
+
+        findings.push({
+            type: "warning",
+            title:
+                privileged +
+                " privileged container(s) detected",
+            text:
+                "Privileged containers have elevated access to the host."
+        });
+
+    }
+
+
+    if (Number(root) > 0) {
+
+        findings.push({
+            type: "warning",
+            title:
+                root +
+                " root/default-user container(s) detected",
+            text:
+                "Consider running applications with a non-root user where possible."
+        });
+
+    }
+
+
+    if (Number(ports) > 0) {
+
+        findings.push({
+            type: "info",
+            title:
+                ports +
+                " exposed port mapping(s) detected",
+            text:
+                "Review published ports and ensure only required services are exposed."
+        });
+
+    }
+
+
+    if (findings.length === 0) {
+
+        container.innerHTML = `
+            <div class="finding success">
+                <div class="finding-icon">✓</div>
+
+                <div>
+                    <strong>
+                        No major security findings detected
+                    </strong>
+
+                    <p>
+                        The current security checks did not
+                        identify privileged or root containers.
+                    </p>
+                </div>
+            </div>
+        `;
+
+        return;
+
+    }
+
+
+    container.innerHTML =
+        findings.map(finding => `
+
+            <div class="finding ${finding.type}">
+
+                <div class="finding-icon">
+                    ${finding.type === "warning" ? "!" : "↗"}
+                </div>
+
+                <div>
+
+                    <strong>
+                        ${escapeHtml(finding.title)}
+                    </strong>
+
+                    <p>
+                        ${escapeHtml(finding.text)}
+                    </p>
+
+                </div>
+
+            </div>
+
+        `).join("");
+
+}
+
+
+function escapeHtml(value) {
+
+    return String(value)
+
+        .replace(/&/g, "&amp;")
+
+        .replace(/</g, "&lt;")
+
+        .replace(/>/g, "&gt;")
+
+        .replace(/"/g, "&quot;")
+
+        .replace(/'/g, "&#039;");
+
+}
+
+
+runSecurityScan();
+
+</script>
+
+</body>
+</html>

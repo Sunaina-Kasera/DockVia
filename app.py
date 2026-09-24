@@ -38,13 +38,18 @@ def run_script(script_path):
 def dashboard():
     return render_template("index.html")
 
+@app.route("/inventory")
+def inventory_page():
+    return render_template("inventory.html")
 
 @app.route("/api/inventory")
 def inventory():
     return jsonify(
         run_script("inventory/inventory.sh")
     )
-
+@app.route("/monitor")
+def monitor_page():
+    return render_template("monitor.html")
 
 @app.route("/api/monitor")
 def monitor():
@@ -52,6 +57,9 @@ def monitor():
         run_script("monitor/monitor.sh")
     )
 
+@app.route("/analyzer")
+def analyzer_page():
+    return render_template("analyzer.html")
 
 @app.route("/api/analyzer")
 def analyzer():
@@ -59,6 +67,9 @@ def analyzer():
         run_script("analyzer/analyzer.sh")
     )
 
+@app.route("/security")
+def security_page():
+    return render_template("security.html")
 
 @app.route("/api/security")
 def security():
@@ -66,13 +77,18 @@ def security():
         run_script("security/security.sh")
     )
 
+@app.route("/recovery")
+def recovery_page():
+    return render_template("recovery.html")
 
 @app.route("/api/recovery")
 def recovery():
     return jsonify(
         run_script("recovery/recovery.sh")
     )
-
+@app.route("/reports")
+def reports_page():
+    return render_template("reports.html")
 
 @app.route("/api/summary")
 def summary():

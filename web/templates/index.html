@@ -13,186 +13,368 @@
 
 <body>
 
-<header class="topbar">
+    <!-- ================= HEADER ================= -->
 
-    <div>
-        <h1>DockVia</h1>
-        <p>Docker Operations & Visibility Dashboard</p>
-    </div>
+    <header class="topbar">
 
-    <div class="status">
-        <span class="dot"></span>
-        Docker Connected
-    </div>
+        <div class="brand">
 
-</header>
-
-
-<main class="dashboard">
-
-    <section class="welcome">
-
-        <h2>Docker Environment Overview</h2>
-
-        <p>
-            Monitor, analyze and manage your Docker environment.
-        </p>
-
-    </section>
-
-
-    <!-- SUMMARY CARDS -->
-
-    <section class="cards">
-
-        <div class="card">
-            <h3>Containers</h3>
-            <div class="value">--</div>
-            <p>Total containers</p>
-        </div>
-
-        <div class="card">
-            <h3>Running</h3>
-            <div class="value">--</div>
-            <p>Running containers</p>
-        </div>
-
-        <div class="card">
-            <h3>Images</h3>
-            <div class="value">--</div>
-            <p>Docker images</p>
-        </div>
-
-        <div class="card">
-            <h3>Health Score</h3>
-            <div class="value">--</div>
-            <p>Environment health</p>
-        </div>
-
-    </section>
-
-
-    <!-- MODULES -->
-
-    <section class="modules">
-
-        <div class="module">
-            <h3>📦 Inventory</h3>
-            <p>View Docker containers, images, volumes and networks.</p>
-            <button onclick="runModule('inventory')">
-                Run Inventory
-            </button>
-        </div>
-
-
-        <div class="module">
-            <h3>📊 Monitor</h3>
-            <p>Monitor CPU, memory and Docker resource usage.</p>
-            <button onclick="runModule('monitor')">
-                Run Monitor
-            </button>
-        </div>
-
-
-        <div class="module">
-            <h3>🧠 Analyzer</h3>
-            <p>Analyze environment health and optimization issues.</p>
-            <button onclick="runModule('analyzer')">
-                Run Analyzer
-            </button>
-        </div>
-
-
-        <div class="module">
-            <h3>🔒 Security</h3>
-            <p>Detect privileged containers, root users and exposed ports.</p>
-            <button onclick="runModule('security')">
-                Run Security Scan
-            </button>
-        </div>
-
-
-        <div class="module">
-            <h3>🔄 Recovery</h3>
-            <p>Detect and recover stopped Docker containers.</p>
-            <button onclick="runModule('recovery')">
-                Run Recovery
-            </button>
-        </div>
-
-    </section>
-
-
-    <!-- RESOURCE MONITORING -->
-
-    <section class="resource-section">
-
-        <div class="section-header">
-
-            <div>
-                <h2>Resource Monitoring</h2>
-
-                <p>
-                    Live Docker container resource usage
-                </p>
+            <div class="brand-logo">
+                <span></span>
             </div>
 
-            <span class="live-badge">
-                ● LIVE
-            </span>
+            <span>DockVia</span>
 
         </div>
 
 
-        <div class="table-wrapper">
+        <div class="top-actions">
 
-            <table>
+            <!-- Search -->
 
-                <thead>
+            <button
+                class="icon-btn"
+                onclick="toggleSearch()"
+                aria-label="Search">
 
-                    <tr>
-                        <th>Container</th>
-                        <th>CPU</th>
-                        <th>Memory</th>
-                        <th>Memory %</th>
-                        <th>Network I/O</th>
-                    </tr>
+                <span class="search-icon"></span>
 
-                </thead>
+            </button>
 
-                <tbody id="resource-table">
 
-                    <tr>
-                        <td colspan="5">
-                            Loading resource data...
-                        </td>
-                    </tr>
+            <!-- Menu -->
 
-                </tbody>
+            <button
+                class="icon-btn menu-trigger"
+                onclick="toggleMenu()"
+                aria-label="Menu">
 
-            </table>
+                <span></span>
+                <span></span>
+                <span></span>
+
+            </button>
 
         </div>
 
-    </section>
+    </header>
 
 
-    <!-- MODULE OUTPUT -->
 
-    <section class="result-section">
+    <!-- ================= SEARCH ================= -->
 
-        <h2>Module Output</h2>
+    <div id="search-box" class="search-box">
 
-        <pre id="result">
-Select a module to view its output.
-        </pre>
+        <input
+            id="search-input"
+            type="text"
+            placeholder="Search containers, images, volumes..."
+        >
 
-    </section>
-
-</main>
+    </div>
 
 
-<script src="{{ url_for('static', filename='js/app.js') }}"></script>
+
+    <!-- ================= SIDE MENU ================= -->
+
+    <aside id="side-menu" class="side-menu">
+
+        <div class="menu-header">
+
+            <div class="menu-brand">
+
+                <div class="brand-logo small">
+                    <span></span>
+                </div>
+
+                <span>DockVia</span>
+
+            </div>
+
+
+            <button
+                class="close-menu"
+                onclick="closeMenu()"
+                aria-label="Close menu">
+
+                ×
+
+            </button>
+
+        </div>
+
+
+        <nav class="menu-nav">
+
+            <!-- Inventory -->
+
+            <a href="/inventory" onclick="closeMenu()">
+
+                <span class="nav-icon inventory-icon"></span>
+
+                <span>Inventory</span>
+
+            </a>
+
+
+            <!-- Monitor -->
+
+            <a href="/monitor" onclick="closeMenu()">
+
+                <span class="nav-icon monitor-icon"></span>
+
+                <span>Monitor</span>
+
+            </a>
+
+
+            <!-- Analyzer -->
+
+            <a href="/analyzer" onclick="closeMenu()">
+
+                <span class="nav-icon analyzer-icon"></span>
+
+                <span>Analyzer</span>
+
+            </a>
+
+
+            <!-- Security -->
+
+            <a href="/security" onclick="closeMenu()">
+
+                <span class="nav-icon security-icon"></span>
+
+                <span>Security</span>
+
+            </a>
+
+
+            <!-- Recovery -->
+
+            <a href="/recovery" onclick="closeMenu()">
+
+                <span class="nav-icon recovery-icon"></span>
+
+                <span>Recovery</span>
+
+            </a>
+
+
+            <!-- Reports -->
+
+            <a href="/reports" onclick="closeMenu()">
+
+                <span class="nav-icon reports-icon"></span>
+
+                <span>Reports</span>
+
+            </a>
+
+        </nav>
+
+    </aside>
+
+
+
+    <!-- ================= OVERLAY ================= -->
+
+    <div
+        id="overlay"
+        class="overlay"
+        onclick="closeMenu()">
+    </div>
+
+
+
+    <!-- ================= MAIN PAGE ================= -->
+
+    <main class="home">
+
+
+        <!-- =================================================
+             LEFT SIDE
+        ================================================= -->
+
+        <section class="hero-text">
+
+            <div class="eyebrow">
+                DOCKER OPERATIONS PLATFORM
+            </div>
+
+
+            <div class="title-row">
+
+                <h1>DockVia</h1>
+
+                <div class="hero-logo">
+
+                    <span></span>
+
+                </div>
+
+            </div>
+
+
+            <h2>
+
+                Docker Operations
+
+                <span>& Visibility</span>
+
+            </h2>
+
+
+            <p>
+
+                Monitor, analyze, secure and recover
+                your Docker environment from one place.
+
+            </p>
+
+
+            <div class="hero-line"></div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             DOCKER VISUAL / ANIMATION
+        ================================================= -->
+
+        <section class="docker-scene">
+
+            <div class="docker-whale">
+    <img src="{{ url_for('static', filename='images/whale.7.png') }}" alt="Docker whale">
+            </div>
+
+            <div class="engine-status">
+                <span></span>
+                <span class="engine-text">
+                    Docker Engine
+                </span>
+                <strong>
+                    Connected
+                </strong>
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             STATUS BAR
+        ================================================= -->
+
+        <section class="status-bar">
+
+
+            <!-- Running -->
+
+            <div class="status-item">
+
+                <div class="status-symbol running"></div>
+
+                <div>
+
+                    <small>
+                        Running
+                    </small>
+
+                    <strong id="running-count">
+                        --
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <div class="status-divider"></div>
+
+
+            <!-- Stopped -->
+
+            <div class="status-item">
+
+                <div class="status-symbol stopped"></div>
+
+                <div>
+
+                    <small>
+                        Stopped
+                    </small>
+
+                    <strong id="stopped-count">
+                        --
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <div class="status-divider"></div>
+
+
+            <!-- Images -->
+
+            <div class="status-item">
+
+                <div class="status-symbol images"></div>
+
+                <div>
+
+                    <small>
+                        Images
+                    </small>
+
+                    <strong id="image-count">
+                        --
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <div class="status-divider"></div>
+
+
+            <!-- Health -->
+
+            <div class="status-item">
+
+                <div class="status-symbol health">
+                    ♥
+                </div>
+
+                <div>
+
+                    <small>
+                        Health
+                    </small>
+
+                    <strong id="health-score">
+                        --
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+
+    <!-- ================= JAVASCRIPT ================= -->
+
+    <script
+        src="{{ url_for('static', filename='js/app.js') }}">
+    </script>
 
 </body>
 

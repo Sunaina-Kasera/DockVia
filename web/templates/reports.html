@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>DockVia | Reports</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/reports.css') }}">
+</head>
+
+<body>
+
+<header class="topbar">
+
+    <div class="brand">
+        <div class="brand-logo">
+            <span></span>
+        </div>
+        <span>DockVia</span>
+    </div>
+
+    <div class="top-actions">
+
+        <button class="icon-btn"
+                onclick="toggleSearch()"
+                aria-label="Search">
+            <span class="search-icon"></span>
+        </button>
+
+        <button class="icon-btn menu-trigger"
+                onclick="toggleMenu()"
+                aria-label="Menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+
+    </div>
+
+</header>
+
+
+<!-- Search -->
+
+<div id="search-box" class="search-box">
+
+    <input
+        id="search-input"
+        type="text"
+        placeholder="Search DockVia..."
+    >
+
+</div>
+
+
+<!-- Side Menu -->
+
+<aside id="side-menu" class="side-menu">
+
+    <div class="menu-header">
+
+        <div class="menu-brand">
+
+            <div class="brand-logo small">
+                <span></span>
+            </div>
+
+            <span>DockVia</span>
+
+        </div>
+
+        <button class="close-menu"
+                onclick="closeMenu()">
+            ×
+        </button>
+
+    </div>
+
+
+    <nav class="menu-nav">
+
+        <a href="/inventory" onclick="closeMenu()">
+            <span class="nav-icon inventory-icon"></span>
+            <span>Inventory</span>
+        </a>
+
+        <a href="/monitor" onclick="closeMenu()">
+            <span class="nav-icon monitor-icon"></span>
+            <span>Monitor</span>
+        </a>
+
+        <a href="/analyzer" onclick="closeMenu()">
+            <span class="nav-icon analyzer-icon"></span>
+            <span>Analyzer</span>
+        </a>
+
+        <a href="/security" onclick="closeMenu()">
+            <span class="nav-icon security-icon"></span>
+            <span>Security</span>
+        </a>
+
+        <a href="/recovery" onclick="closeMenu()">
+            <span class="nav-icon recovery-icon"></span>
+            <span>Recovery</span>
+        </a>
+
+        <a href="/reports" onclick="closeMenu()">
+            <span class="nav-icon reports-icon"></span>
+            <span>Reports</span>
+        </a>
+
+    </nav>
+
+</aside>
+
+
+<div id="overlay"
+     class="overlay"
+     onclick="closeMenu()">
+</div>
+
+
+<main class="reports-page">
+
+
+    <!-- Header -->
+
+    <section class="reports-header">
+
+        <div>
+
+            <p class="page-label">
+                DOCKER REPORTS
+            </p>
+
+            <h1>Reports</h1>
+
+            <p class="page-description">
+                Consolidated overview of your Docker environment,
+                health, security and recovery activity.
+            </p>
+
+        </div>
+
+
+        <button
+            id="generate-btn"
+            class="generate-btn"
+            onclick="generateReport()">
+
+            ↻ Generate Report
+
+        </button>
+
+    </section>
+
+
+    <!-- Report Status -->
+
+    <section class="report-status">
+
+        <div class="status-card">
+
+            <div id="report-status-icon"
+                 class="status-icon">
+
+                ●
+
+            </div>
+
+            <div>
+
+                <span class="card-label">
+                    REPORT STATUS
+                </span>
+
+                <strong id="report-status">
+                    Ready
+                </strong>
+
+                <p id="report-time">
+                    No report generated yet
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- Environment Summary -->
+
+    <section class="section-block">
+
+        <div class="section-heading">
+
+            <div>
+
+                <span class="page-label">
+                    ENVIRONMENT
+                </span>
+
+                <h2>Docker Summary</h2>
+
+            </div>
+
+        </div>
+
+
+        <div class="summary-grid">
+
+
+            <div class="summary-card">
+
+                <span>CONTAINERS</span>
+
+                <strong id="containers-count">
+                    --
+                </strong>
+
+            </div>
+
+
+            <div class="summary-card">
+
+                <span>RUNNING</span>
+
+                <strong id="running-count">
+                    --
+                </strong>
+
+            </div>
+
+
+            <div class="summary-card">
+
+                <span>IMAGES</span>
+
+                <strong id="images-count">
+                    --
+                </strong>
+
+            </div>
+
+
+            <div class="summary-card">
+
+                <span>HEALTH SCORE</span>
+
+                <strong id="health-score">
+                    --
+                </strong>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- Health -->
+
+    <section class="section-block">
+
+        <div class="health-card">
+
+            <div>
+
+                <span class="page-label">
+                    ANALYZER
+                </span>
+
+                <h2>Environment Health</h2>
+
+                <p>
+                    Current Docker environment health based on
+                    stopped containers and unused resources.
+                </p>
+
+            </div>
+
+
+            <div class="health-score">
+
+                <strong id="health-number">
+                    --
+                </strong>
+
+                <span>
+                    / 100
+                </span>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- Security + Recovery -->
+
+    <section class="dual-grid">
+
+
+        <div class="report-panel">
+
+            <div class="panel-heading">
+
+                <span class="page-label">
+                    SECURITY
+                </span>
+
+                <h2>Security Overview</h2>
+
+            </div>
+
+
+            <div class="security-metrics">
+
+                <div>
+
+                    <span>
+                        Privileged
+                    </span>
+
+                    <strong id="privileged-count">
+                        --
+                    </strong>
+
+                </div>
+
+
+                <div>
+
+                    <span>
+                        Root User
+                    </span>
+
+                    <strong id="root-count">
+                        --
+                    </strong>
+
+                </div>
+
+
+                <div>
+
+                    <span>
+                        Exposed Ports
+                    </span>
+
+                    <strong id="ports-count">
+                        --
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="report-panel">
+
+            <div class="panel-heading">
+
+                <span class="page-label">
+                    RECOVERY
+                </span>
+
+                <h2>Recovery Overview</h2>
+
+            </div>
+
+
+            <div class="security-metrics">
+
+                <div>
+
+                    <span>
+                        Stopped
+                    </span>
+
+                    <strong id="recovery-stopped">
+                        --
+                    </strong>
+
+                </div>
+
+
+                <div>
+
+                    <span>
+                        Recovered
+                    </span>
+
+                    <strong id="recovered-count">
+                        --
+                    </strong>
+
+                </div>
+
+
+                <div>
+
+                    <span>
+                        Failed
+                    </span>
+
+                    <strong id="failed-count">
+                        --
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- Consolidated Report -->
+
+    <section class="section-block">
+
+        <div class="section-heading">
+
+            <div>
+
+                <span class="page-label">
+                    CONSOLIDATED REPORT
+                </span>
+
+                <h2>Docker Environment Report</h2>
+
+            </div>
+
+        </div>
+
+
+        <pre id="report-output"
+             class="report-output">No report generated yet.</pre>
+
+    </section>
+
+
+    <div id="report-error"
+         class="report-error">
+    </div>
+
+
+</main>
+
+
+<script src="{{ url_for('static', filename='js/app.js') }}"></script>
+
+
+<script>
+
+async function generateReport() {
+
+    const button =
+        document.getElementById("generate-btn");
+
+    const errorBox =
+        document.getElementById("report-error");
+
+    const status =
+        document.getElementById("report-status");
+
+    const statusIcon =
+        document.getElementById("report-status-icon");
+
+
+    errorBox.style.display = "none";
+
+    button.disabled = true;
+
+    button.textContent =
+        "↻ Generating...";
+
+    status.textContent =
+        "Generating";
+
+    statusIcon.textContent =
+        "↻";
+
+
+    try {
+
+        const results =
+            await Promise.all([
+
+                fetch("/api/summary")
+                    .then(response =>
+                        response.json()
+                    ),
+
+                fetch("/api/analyzer")
+                    .then(response =>
+                        response.json()
+                    ),
+
+                fetch("/api/security")
+                    .then(response =>
+                        response.json()
+                    ),
+
+                fetch("/api/recovery")
+                    .then(response =>
+                        response.json()
+                    )
+
+            ]);
+
+
+        const summary =
+            results[0];
+
+        const analyzer =
+            results[1];
+
+        const security =
+            results[2];
+
+        const recovery =
+            results[3];
+
+
+        if (!summary.success) {
+            throw new Error(
+                "Unable to load Docker summary."
+            );
+        }
+
+
+        updateSummary(summary);
+
+
+        if (analyzer.success) {
+            parseAnalyzer(
+                analyzer.output
+            );
+        }
+
+
+        if (security.success) {
+            parseSecurity(
+                security.output
+            );
+        }
+
+
+        if (recovery.success) {
+            parseRecovery(
+                recovery.output
+            );
+        }
+
+
+        createReportOutput(
+            summary,
+            analyzer,
+            security,
+            recovery
+        );
+
+
+        status.textContent =
+            "Report Generated";
+
+        statusIcon.textContent =
+            "✓";
+
+
+        document.getElementById(
+            "report-time"
+        ).textContent =
+            "Generated " +
+            new Date().toLocaleTimeString();
+
+
+    } catch (error) {
+
+        console.error(
+            "DockVia report error:",
+            error
+        );
+
+
+        status.textContent =
+            "Generation Failed";
+
+        statusIcon.textContent =
+            "!";
+
+
+        errorBox.textContent =
+            "Unable to generate report: " +
+            error.message;
+
+        errorBox.style.display =
+            "block";
+
+    } finally {
+
+        button.disabled = false;
+
+        button.textContent =
+            "↻ Generate Report";
+
+    }
+
+}
+
+
+function updateSummary(data) {
+
+    document.getElementById(
+        "containers-count"
+    ).textContent =
+        data.containers;
+
+
+    document.getElementById(
+        "running-count"
+    ).textContent =
+        data.running;
+
+
+    document.getElementById(
+        "images-count"
+    ).textContent =
+        data.images;
+
+
+    document.getElementById(
+        "health-score"
+    ).textContent =
+        data.health + "/100";
+
+
+    document.getElementById(
+        "health-number"
+    ).textContent =
+        data.health;
+
+}
+
+
+function parseAnalyzer(output) {
+
+    const stopped =
+        extractNumber(
+            output,
+            /Stopped Containers\s*:\s*(\d+)/
+        );
+
+
+    const health =
+        extractNumber(
+            output,
+            /Health Score\s*:\s*(\d+)/
+        );
+
+
+    if (health !== null) {
+
+        document.getElementById(
+            "health-score"
+        ).textContent =
+            health + "/100";
+
+
+        document.getElementById(
+            "health-number"
+        ).textContent =
+            health;
+
+    }
+
+
+    if (stopped !== null) {
+
+        document.getElementById(
+            "recovery-stopped"
+        ).textContent =
+            stopped;
+
+    }
+
+}
+
+
+function parseSecurity(output) {
+
+    const privileged =
+        extractNumber(
+            output,
+            /Privileged Count\s*:\s*(\d+)/
+        );
+
+
+    const root =
+        extractNumber(
+            output,
+            /Root Containers\s*:\s*(\d+)/
+        );
+
+
+    document.getElementById(
+        "privileged-count"
+    ).textContent =
+        privileged !== null
+            ? privileged
+            : 0;
+
+
+    document.getElementById(
+        "root-count"
+    ).textContent =
+        root !== null
+            ? root
+            : 0;
+
+
+    const portLines =
+        output
+            .split("\n")
+            .filter(line =>
+                line.includes("->") ||
+                line.match(/\d+\/tcp/)
+            );
+
+
+    document.getElementById(
+        "ports-count"
+    ).textContent =
+        portLines.length;
+
+}
+
+
+function parseRecovery(output) {
+
+    const recovered =
+        extractNumber(
+            output,
+            /Recovered\s*:\s*(\d+)/
+        );
+
+
+    const failed =
+        extractNumber(
+            output,
+            /Failed\s*:\s*(\d+)/
+        );
+
+
+    document.getElementById(
+        "recovered-count"
+    ).textContent =
+        recovered !== null
+            ? recovered
+            : 0;
+
+
+    document.getElementById(
+        "failed-count"
+    ).textContent =
+        failed !== null
+            ? failed
+            : 0;
+
+}
+
+
+function extractNumber(
+    text,
+    regex
+) {
+
+    const match =
+        text.match(regex);
+
+    return match
+        ? Number(match[1])
+        : null;
+
+}
+
+
+function createReportOutput(
+    summary,
+    analyzer,
+    security,
+    recovery
+) {
+
+    const now =
+        new Date().toLocaleString();
+
+
+    const output = `
+
+=========================================
+        DOCKVIA ENVIRONMENT REPORT
+=========================================
+
+Generated : ${now}
+
+-----------------------------------------
+DOCKER SUMMARY
+-----------------------------------------
+
+Total Containers : ${summary.containers}
+Running Containers : ${summary.running}
+Stopped Containers : ${summary.containers - summary.running}
+Total Images : ${summary.images}
+Health Score : ${summary.health}/100
+
+
+-----------------------------------------
+ANALYZER
+-----------------------------------------
+
+${analyzer.success
+    ? analyzer.output
+    : "Analyzer unavailable."
+}
+
+
+-----------------------------------------
+SECURITY
+-----------------------------------------
+
+${security.success
+    ? security.output
+    : "Security scan unavailable."
+}
+
+
+-----------------------------------------
+RECOVERY
+-----------------------------------------
+
+${recovery.success
+    ? recovery.output
+    : "Recovery information unavailable."
+}
+
+
+=========================================
+          REPORT COMPLETED
+=========================================
+`;
+
+
+    document.getElementById(
+        "report-output"
+    ).textContent =
+        output;
+
+}
+
+
+generateReport();
+
+</script>
+
+</body>
+</html>

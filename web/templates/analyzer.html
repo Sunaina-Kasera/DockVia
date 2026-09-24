@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>DockVia | Analyzer</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/analyzer.css') }}">
+</head>
+
+<body>
+
+<header class="topbar">
+
+    <div class="brand">
+
+        <div class="brand-logo">
+            <span></span>
+        </div>
+
+        <span>DockVia</span>
+
+    </div>
+
+    <div class="top-actions">
+
+        <button class="icon-btn"
+                onclick="toggleSearch()"
+                aria-label="Search">
+            <span class="search-icon"></span>
+        </button>
+
+        <button class="icon-btn menu-trigger"
+                onclick="toggleMenu()"
+                aria-label="Menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+
+    </div>
+
+</header>
+
+
+<div id="search-box" class="search-box">
+
+    <input
+        id="search-input"
+        type="text"
+        placeholder="Search containers, images, volumes..."
+    >
+
+</div>
+
+
+<aside id="side-menu" class="side-menu">
+
+    <div class="menu-header">
+
+        <div class="menu-brand">
+
+            <div class="brand-logo small">
+                <span></span>
+            </div>
+
+            <span>DockVia</span>
+
+        </div>
+
+        <button class="close-menu"
+                onclick="closeMenu()">
+            ×
+        </button>
+
+    </div>
+
+    <nav class="menu-nav">
+
+        <a href="/inventory" onclick="closeMenu()">
+            <span class="nav-icon inventory-icon"></span>
+            <span>Inventory</span>
+        </a>
+
+        <a href="/monitor" onclick="closeMenu()">
+            <span class="nav-icon monitor-icon"></span>
+            <span>Monitor</span>
+        </a>
+
+        <a href="/analyzer" onclick="closeMenu()">
+            <span class="nav-icon analyzer-icon"></span>
+            <span>Analyzer</span>
+        </a>
+
+        <a href="/security" onclick="closeMenu()">
+            <span class="nav-icon security-icon"></span>
+            <span>Security</span>
+        </a>
+
+        <a href="/recovery" onclick="closeMenu()">
+            <span class="nav-icon recovery-icon"></span>
+            <span>Recovery</span>
+        </a>
+
+        <a href="/reports" onclick="closeMenu()">
+            <span class="nav-icon reports-icon"></span>
+            <span>Reports</span>
+        </a>
+
+    </nav>
+
+</aside>
+
+
+<div id="overlay"
+     class="overlay"
+     onclick="closeMenu()">
+</div>
+
+
+<main class="analyzer-page">
+
+    <section class="analyzer-header">
+
+        <div>
+            <p class="page-label">DOCKER ANALYSIS</p>
+
+            <h1>Analyzer</h1>
+
+            <p class="page-description">
+                Analyze your Docker environment and identify
+                resource, health and optimization issues.
+            </p>
+        </div>
+
+        <button
+            id="analyze-btn"
+            class="analyze-btn"
+            onclick="runAnalysis()">
+            ↻ Run Analysis
+        </button>
+
+    </section>
+
+
+    <section class="health-section">
+
+        <div class="health-card">
+
+            <div class="health-info">
+
+                <span class="card-label">
+                    ENVIRONMENT HEALTH
+                </span>
+
+                <div class="health-score"
+                     id="health-score">
+                    --
+                </div>
+
+                <p>
+                    Overall Docker environment health
+                </p>
+
+            </div>
+
+            <div class="risk-box">
+
+                <span class="card-label">
+                    RISK LEVEL
+                </span>
+
+                <strong id="risk-level"
+                        class="risk-value">
+                    --
+                </strong>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <section class="metrics-grid">
+
+        <div class="metric-card">
+            <span class="metric-icon">▶</span>
+            <div>
+                <span class="metric-label">Running Containers</span>
+                <strong id="running-containers">--</strong>
+            </div>
+        </div>
+
+        <div class="metric-card">
+            <span class="metric-icon warning">■</span>
+            <div>
+                <span class="metric-label">Stopped Containers</span>
+                <strong id="stopped-containers">--</strong>
+            </div>
+        </div>
+
+        <div class="metric-card">
+            <span class="metric-icon">▣</span>
+            <div>
+                <span class="metric-label">Total Images</span>
+                <strong id="total-images">--</strong>
+            </div>
+        </div>
+
+        <div class="metric-card">
+            <span class="metric-icon warning">△</span>
+            <div>
+                <span class="metric-label">Unused Images</span>
+                <strong id="unused-images">--</strong>
+            </div>
+        </div>
+
+        <div class="metric-card">
+            <span class="metric-icon">◈</span>
+            <div>
+                <span class="metric-label">Total Volumes</span>
+                <strong id="total-volumes">--</strong>
+            </div>
+        </div>
+
+        <div class="metric-card">
+            <span class="metric-icon warning">△</span>
+            <div>
+                <span class="metric-label">Unused Volumes</span>
+                <strong id="unused-volumes">--</strong>
+            </div>
+        </div>
+
+        <div class="metric-card">
+            <span class="metric-icon">◎</span>
+            <div>
+                <span class="metric-label">Docker Networks</span>
+                <strong id="total-networks">--</strong>
+            </div>
+        </div>
+
+    </section>
+
+
+    <section class="recommendations-section">
+
+        <div class="section-heading">
+            <div>
+                <span class="page-label">OPTIMIZATION</span>
+                <h2>Recommendations</h2>
+            </div>
+        </div>
+
+        <div id="recommendations"
+             class="recommendations">
+
+            <div class="empty-state">
+                Run an analysis to generate recommendations.
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <section class="analysis-output-section">
+
+        <div class="section-heading">
+
+            <div>
+                <span class="page-label">RAW ANALYSIS</span>
+                <h2>Analysis Output</h2>
+            </div>
+
+            <span id="analysis-time">
+                Not analyzed
+            </span>
+
+        </div>
+
+        <pre id="analysis-output"
+             class="analysis-output">No analysis available.</pre>
+
+    </section>
+
+
+    <div id="analyzer-error"
+         class="analyzer-error">
+    </div>
+
+</main>
+
+
+<script src="{{ url_for('static', filename='js/app.js') }}"></script>
+
+<script>
+async function runAnalysis() {
+
+    const button = document.getElementById("analyze-btn");
+    const errorBox = document.getElementById("analyzer-error");
+
+    errorBox.style.display = "none";
+    button.disabled = true;
+    button.textContent = "↻ Analyzing...";
+
+    try {
+
+        const response = await fetch("/api/analyzer");
+        const data = await response.json();
+
+        if (!data.success) {
+            throw new Error(data.error || "Analysis failed.");
+        }
+
+        document.getElementById("analysis-output").textContent = data.output;
+
+        parseAnalysis(data.output);
+
+        document.getElementById("analysis-time").textContent =
+            "Analyzed " + new Date().toLocaleTimeString();
+
+    } catch (error) {
+
+        console.error("DockVia analyzer error:", error);
+
+        errorBox.textContent =
+            "Unable to run analyzer: " + error.message;
+
+        errorBox.style.display = "block";
+
+    } finally {
+
+        button.disabled = false;
+        button.textContent = "↻ Run Analysis";
+
+    }
+}
+
+
+function parseAnalysis(output) {
+
+    setText("running-containers",
+        extractNumber(output, /Running Containers\s*:\s*(\d+)/));
+
+    setText("stopped-containers",
+        extractNumber(output, /Stopped Containers\s*:\s*(\d+)/));
+
+    setText("total-images",
+        extractNumber(output, /Total Images\s*:\s*(\d+)/));
+
+    setText("unused-images",
+        extractNumber(output, /Unused Images\s*:\s*(\d+)/));
+
+    setText("total-volumes",
+        extractNumber(output, /Total Volumes\s*:\s*(\d+)/));
+
+    setText("unused-volumes",
+        extractNumber(output, /Unused Volumes\s*:\s*(\d+)/));
+
+    setText("total-networks",
+        extractNumber(output, /Total Networks\s*:\s*(\d+)/));
+
+
+    const healthMatch =
+        output.match(/Health Score\s*:\s*(\d+)/);
+
+    const riskMatch =
+        output.match(/Risk Level\s*:\s*([A-Z]+)/);
+
+
+    const health =
+        healthMatch ? healthMatch[1] : "--";
+
+    const risk =
+        riskMatch ? riskMatch[1] : "--";
+
+
+    setText(
+        "health-score",
+        health === "--" ? "--" : health + "/100"
+    );
+
+
+    const riskElement =
+        document.getElementById("risk-level");
+
+    riskElement.textContent = risk;
+
+    riskElement.className =
+        "risk-value risk-" + risk.toLowerCase();
+
+
+    parseRecommendations(output);
+}
+
+
+function parseRecommendations(output) {
+
+    const sectionStart =
+        output.indexOf("Recommendations");
+
+    const sectionEnd =
+        output.indexOf("Analysis Completed");
+
+
+    if (sectionStart === -1 || sectionEnd === -1) {
+
+        document.getElementById("recommendations").innerHTML =
+            `<div class="empty-state">
+                No recommendations available.
+             </div>`;
+
+        return;
+    }
+
+
+    const section =
+        output.substring(
+            sectionStart + "Recommendations".length,
+            sectionEnd
+        );
+
+
+    const lines =
+        section
+            .split("\n")
+            .map(line => line.trim())
+            .filter(line =>
+                line.startsWith("⚠") ||
+                line.startsWith("✅")
+            );
+
+
+    const recommendations =
+        document.getElementById("recommendations");
+
+
+    if (lines.length === 0) {
+
+        recommendations.innerHTML =
+            `<div class="recommendation success">
+                <span>✓</span>
+                <div>
+                    <strong>No major optimization issues detected.</strong>
+                    <p>Docker environment looks healthy.</p>
+                </div>
+             </div>`;
+
+        return;
+    }
+
+
+    recommendations.innerHTML =
+        lines.map(line => {
+
+            const isSuccess = line.startsWith("✅");
+
+            return `
+                <div class="recommendation ${isSuccess ? "success" : "warning"}">
+
+                    <span>${isSuccess ? "✓" : "!"}</span>
+
+                    <div>
+                        <strong>${escapeHtml(line)}</strong>
+                        <p>Review this issue in your Docker environment.</p>
+                    </div>
+
+                </div>
+            `;
+
+        }).join("");
+}
+
+
+function extractNumber(output, regex) {
+
+    const match = output.match(regex);
+
+    return match ? match[1] : "--";
+}
+
+
+function setText(id, value) {
+
+    document.getElementById(id).textContent = value;
+}
+
+
+function escapeHtml(value) {
+
+    return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+}
+
+
+runAnalysis();
+</script>
+
+</body>
+</html>

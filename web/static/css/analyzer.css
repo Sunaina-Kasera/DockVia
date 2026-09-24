@@ -1,0 +1,301 @@
+.analyzer-page {
+    min-height: calc(100vh - 76px);
+    padding: 42px 6vw 70px;
+    box-sizing: border-box;
+    overflow: visible;
+}
+
+html:has(.analyzer-page),
+body:has(.analyzer-page) {
+    height: auto !important;
+    min-height: 100%;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+}
+
+.analyzer-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 30px;
+    margin-bottom: 34px;
+}
+
+.page-label {
+    margin: 0 0 8px;
+    color: var(--olive);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.8px;
+}
+
+.analyzer-header h1 {
+    margin: 0;
+    color: var(--olive-dark);
+    font-size: 38px;
+    font-weight: 600;
+}
+
+.page-description {
+    margin: 10px 0 0;
+    color: var(--muted);
+    font-size: 14px;
+}
+
+.analyze-btn {
+    border: none;
+    padding: 12px 19px;
+    border-radius: 12px;
+    background: var(--olive);
+    color: white;
+    font-size: 13px;
+    cursor: pointer;
+    transition: .2s ease;
+}
+
+.analyze-btn:hover {
+    transform: translateY(-1px);
+    opacity: .92;
+}
+
+.analyze-btn:disabled {
+    opacity: .6;
+    cursor: wait;
+}
+
+.health-section {
+    margin-bottom: 24px;
+}
+
+.health-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px;
+    padding: 26px 30px;
+    border: 1px solid rgba(102,115,74,.12);
+    border-radius: 18px;
+    background: rgba(255,255,255,.65);
+    box-shadow: 0 10px 35px rgba(50,50,30,.05);
+}
+
+.card-label {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--muted);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.4px;
+}
+
+.health-score {
+    color: var(--olive-dark);
+    font-size: 38px;
+    font-weight: 700;
+}
+
+.health-info p {
+    margin: 5px 0 0;
+    color: var(--muted);
+    font-size: 13px;
+}
+
+.risk-box {
+    min-width: 130px;
+    padding-left: 30px;
+    border-left: 1px solid rgba(102,115,74,.15);
+}
+
+.risk-value {
+    font-size: 22px;
+    font-weight: 700;
+}
+
+.risk-low { color: #68794b; }
+.risk-medium { color: #a17a3b; }
+.risk-high { color: #a6534b; }
+
+.metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
+    margin-bottom: 36px;
+}
+
+.metric-card {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    min-height: 92px;
+    padding: 18px;
+    border: 1px solid rgba(102,115,74,.10);
+    border-radius: 15px;
+    background: rgba(255,255,255,.62);
+    box-shadow: 0 8px 25px rgba(50,50,30,.04);
+}
+
+.metric-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 11px;
+    background: rgba(102,115,74,.10);
+    color: var(--olive);
+    font-size: 16px;
+}
+
+.metric-icon.warning {
+    color: #a17a3b;
+    background: rgba(161,122,59,.10);
+}
+
+.metric-label {
+    display: block;
+    margin-bottom: 5px;
+    color: var(--muted);
+    font-size: 11px;
+}
+
+.metric-card strong {
+    color: var(--olive-dark);
+    font-size: 23px;
+}
+
+.recommendations-section,
+.analysis-output-section {
+    margin-bottom: 35px;
+}
+
+.section-heading {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-bottom: 16px;
+}
+
+.section-heading h2 {
+    margin: 0;
+    color: var(--olive-dark);
+    font-size: 22px;
+    font-weight: 600;
+}
+
+.section-heading > span {
+    color: var(--muted);
+    font-size: 12px;
+}
+
+.recommendations {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.recommendation {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 17px 19px;
+    border-radius: 14px;
+    background: rgba(255,255,255,.65);
+    border: 1px solid rgba(102,115,74,.10);
+}
+
+.recommendation > span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: rgba(161,122,59,.12);
+    color: #a17a3b;
+    font-weight: 700;
+}
+
+.recommendation.success > span {
+    background: rgba(102,115,74,.12);
+    color: var(--olive);
+}
+
+.recommendation strong {
+    display: block;
+    color: var(--olive-dark);
+    font-size: 13px;
+}
+
+.recommendation p {
+    margin: 5px 0 0;
+    color: var(--muted);
+    font-size: 12px;
+}
+
+.empty-state {
+    padding: 28px;
+    text-align: center;
+    border: 1px dashed rgba(102,115,74,.20);
+    border-radius: 14px;
+    color: var(--muted);
+    font-size: 13px;
+}
+
+.analysis-output {
+    min-height: 180px;
+    max-height: 420px;
+    margin: 0;
+    padding: 22px;
+    overflow: auto;
+    border-radius: 15px;
+    background: #20231d;
+    color: #dfe5d5;
+    font-family: "Courier New", monospace;
+    font-size: 12px;
+    line-height: 1.65;
+}
+
+.analyzer-error {
+    display: none;
+    margin-top: 20px;
+    padding: 14px 18px;
+    border-radius: 12px;
+    background: rgba(166,83,75,.10);
+    color: #a6534b;
+    font-size: 13px;
+}
+
+@media (max-width: 1000px) {
+    .metrics-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 700px) {
+    .analyzer-page {
+        padding: 30px 5vw 50px;
+    }
+
+    .analyzer-header {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .health-card {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .risk-box {
+        width: 100%;
+        padding-left: 0;
+        padding-top: 18px;
+        border-left: none;
+        border-top: 1px solid rgba(102,115,74,.15);
+    }
+
+    .metrics-grid {
+        grid-template-columns: 1fr;
+    }
+}

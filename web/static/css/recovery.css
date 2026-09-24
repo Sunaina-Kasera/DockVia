@@ -1,0 +1,458 @@
+.recovery-page {
+    min-height: calc(100vh - 76px);
+    padding: 42px 6vw 70px;
+    box-sizing: border-box;
+    overflow: visible;
+}
+
+
+/* Scroll */
+
+html:has(.recovery-page),
+body:has(.recovery-page) {
+    height: auto !important;
+    min-height: 100%;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+}
+
+
+/* Header */
+
+.recovery-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+
+    gap: 30px;
+
+    margin-bottom: 34px;
+}
+
+.page-label {
+    margin: 0 0 8px;
+
+    color: var(--olive);
+
+    font-size: 11px;
+    font-weight: 700;
+
+    letter-spacing: 1.8px;
+}
+
+.recovery-header h1 {
+    margin: 0;
+
+    color: var(--olive-dark);
+
+    font-size: 38px;
+    font-weight: 600;
+}
+
+.page-description {
+    margin: 10px 0 0;
+
+    color: var(--muted);
+
+    font-size: 14px;
+}
+
+
+/* Button */
+
+.recovery-btn {
+    border: none;
+
+    padding: 12px 19px;
+
+    border-radius: 12px;
+
+    background: var(--olive);
+
+    color: white;
+
+    font-size: 13px;
+
+    cursor: pointer;
+
+    transition: .2s ease;
+}
+
+.recovery-btn:hover {
+    transform: translateY(-1px);
+
+    opacity: .92;
+}
+
+.recovery-btn:disabled {
+    opacity: .6;
+
+    cursor: wait;
+}
+
+
+/* Status */
+
+.recovery-status {
+    margin-bottom: 24px;
+}
+
+.status-card {
+    display: flex;
+
+    align-items: center;
+
+    gap: 17px;
+
+    padding: 22px 26px;
+
+    border: 1px solid rgba(102,115,74,.12);
+
+    border-radius: 17px;
+
+    background: rgba(255,255,255,.65);
+
+    box-shadow:
+        0 10px 35px rgba(50,50,30,.05);
+}
+
+.status-icon {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    width: 46px;
+    height: 46px;
+
+    border-radius: 13px;
+
+    background: rgba(102,115,74,.12);
+
+    color: var(--olive);
+
+    font-size: 21px;
+
+    font-weight: 700;
+}
+
+.card-label {
+    display: block;
+
+    margin-bottom: 5px;
+
+    color: var(--muted);
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    letter-spacing: 1.4px;
+}
+
+.status-card strong {
+    display: block;
+
+    color: var(--olive-dark);
+
+    font-size: 19px;
+}
+
+.status-card p {
+    margin: 4px 0 0;
+
+    color: var(--muted);
+
+    font-size: 12px;
+}
+
+
+/* Metrics */
+
+.recovery-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, minmax(0, 1fr));
+
+    gap: 16px;
+
+    margin-bottom: 36px;
+}
+
+.recovery-card {
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+    min-height: 95px;
+
+    padding: 18px;
+
+    border: 1px solid rgba(102,115,74,.10);
+
+    border-radius: 15px;
+
+    background: rgba(255,255,255,.62);
+
+    box-shadow:
+        0 8px 25px rgba(50,50,30,.04);
+}
+
+.recovery-card-icon {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    width: 42px;
+    height: 42px;
+
+    flex-shrink: 0;
+
+    border-radius: 11px;
+
+    background: rgba(102,115,74,.10);
+
+    color: var(--olive);
+
+    font-size: 17px;
+
+    font-weight: 700;
+}
+
+.recovery-card-icon.warning {
+    background: rgba(161,122,59,.10);
+
+    color: #a17a3b;
+}
+
+.recovery-card-icon.success {
+    background: rgba(102,115,74,.12);
+
+    color: var(--olive);
+}
+
+.recovery-card-icon.failed {
+    background: rgba(166,83,75,.10);
+
+    color: #a6534b;
+}
+
+.metric-label {
+    display: block;
+
+    margin-bottom: 5px;
+
+    color: var(--muted);
+
+    font-size: 10px;
+
+    letter-spacing: .5px;
+}
+
+.recovery-card strong {
+    color: var(--olive-dark);
+
+    font-size: 24px;
+}
+
+
+/* Sections */
+
+.actions-section,
+.recovery-output-section {
+    margin-bottom: 35px;
+}
+
+.section-heading {
+    display: flex;
+
+    align-items: flex-end;
+
+    justify-content: space-between;
+
+    margin-bottom: 16px;
+}
+
+.section-heading h2 {
+    margin: 0;
+
+    color: var(--olive-dark);
+
+    font-size: 22px;
+
+    font-weight: 600;
+}
+
+
+/* Recovery actions */
+
+.recovery-actions {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 12px;
+}
+
+.recovery-action {
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: 14px;
+
+    padding: 18px 20px;
+
+    border-radius: 14px;
+
+    background: rgba(255,255,255,.65);
+
+    border: 1px solid rgba(102,115,74,.10);
+}
+
+.action-icon {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    width: 30px;
+    height: 30px;
+
+    flex-shrink: 0;
+
+    border-radius: 50%;
+
+    background: rgba(102,115,74,.12);
+
+    color: var(--olive);
+
+    font-weight: 700;
+}
+
+.recovery-action.failed .action-icon {
+    background: rgba(166,83,75,.10);
+
+    color: #a6534b;
+}
+
+.recovery-action strong {
+    display: block;
+
+    color: var(--olive-dark);
+
+    font-size: 13px;
+}
+
+.recovery-action p {
+    margin: 5px 0 0;
+
+    color: var(--muted);
+
+    font-size: 12px;
+
+    line-height: 1.5;
+}
+
+
+/* Empty */
+
+.empty-state {
+    padding: 28px;
+
+    text-align: center;
+
+    border: 1px dashed rgba(102,115,74,.20);
+
+    border-radius: 14px;
+
+    color: var(--muted);
+
+    font-size: 13px;
+}
+
+
+/* Raw output */
+
+.recovery-output {
+    min-height: 220px;
+
+    max-height: 430px;
+
+    margin: 0;
+
+    padding: 22px;
+
+    overflow: auto;
+
+    border-radius: 15px;
+
+    background: #20231d;
+
+    color: #dfe5d5;
+
+    font-family:
+        "Courier New",
+        monospace;
+
+    font-size: 12px;
+
+    line-height: 1.65;
+}
+
+
+/* Error */
+
+.recovery-error {
+    display: none;
+
+    margin-top: 20px;
+
+    padding: 14px 18px;
+
+    border-radius: 12px;
+
+    background: rgba(166,83,75,.10);
+
+    color: #a6534b;
+
+    font-size: 13px;
+}
+
+
+/* Responsive */
+
+@media (max-width: 1000px) {
+
+    .recovery-grid {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+    }
+
+}
+
+
+@media (max-width: 700px) {
+
+    .recovery-page {
+        padding: 30px 5vw 50px;
+    }
+
+    .recovery-header {
+        align-items: flex-start;
+
+        flex-direction: column;
+    }
+
+    .recovery-grid {
+        grid-template-columns: 1fr;
+    }
+
+}

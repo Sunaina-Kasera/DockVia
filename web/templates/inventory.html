@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Inventory | DockVia</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/inventory.css') }}">
+</head>
+
+<body>
+
+    <!-- ================= HEADER ================= -->
+
+    <header class="topbar">
+
+        <a href="/" class="brand inventory-brand">
+
+            <div class="brand-logo">
+                <span></span>
+            </div>
+
+            <span>DockVia</span>
+
+        </a>
+
+
+        <div class="top-actions">
+
+            <button
+                class="icon-btn"
+                onclick="toggleSearch()"
+                aria-label="Search">
+
+                <span class="search-icon"></span>
+
+            </button>
+
+
+            <button
+                class="icon-btn menu-trigger"
+                onclick="toggleMenu()"
+                aria-label="Menu">
+
+                <span></span>
+                <span></span>
+                <span></span>
+
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <!-- ================= SEARCH ================= -->
+
+    <div id="search-box" class="search-box">
+
+        <input
+            id="search-input"
+            type="text"
+            placeholder="Search inventory..."
+        >
+
+    </div>
+
+
+    <!-- ================= SIDE MENU ================= -->
+
+    <aside id="side-menu" class="side-menu">
+
+        <div class="menu-header">
+
+            <div class="menu-brand">
+
+                <div class="brand-logo small">
+                    <span></span>
+                </div>
+
+                <span>DockVia</span>
+
+            </div>
+
+
+            <button
+                class="close-menu"
+                onclick="closeMenu()"
+                aria-label="Close menu">
+
+                ×
+
+            </button>
+
+        </div>
+
+
+        <nav class="menu-nav">
+
+            <a href="/inventory" onclick="closeMenu()">
+                <span class="nav-icon inventory-icon"></span>
+                <span>Inventory</span>
+            </a>
+
+            <a href="/monitor" onclick="closeMenu()">
+                <span class="nav-icon monitor-icon"></span>
+                <span>Monitor</span>
+            </a>
+
+            <a href="/analyzer" onclick="closeMenu()">
+                <span class="nav-icon analyzer-icon"></span>
+                <span>Analyzer</span>
+            </a>
+
+            <a href="/security" onclick="closeMenu()">
+                <span class="nav-icon security-icon"></span>
+                <span>Security</span>
+            </a>
+
+            <a href="/recovery" onclick="closeMenu()">
+                <span class="nav-icon recovery-icon"></span>
+                <span>Recovery</span>
+            </a>
+
+            <a href="/reports" onclick="closeMenu()">
+                <span class="nav-icon reports-icon"></span>
+                <span>Reports</span>
+            </a>
+
+        </nav>
+
+    </aside>
+
+
+    <!-- ================= OVERLAY ================= -->
+
+    <div
+        id="overlay"
+        class="overlay"
+        onclick="closeMenu()">
+    </div>
+
+
+    <!-- ================= INVENTORY ================= -->
+
+    <main class="inventory-page">
+
+        <section class="inventory-header">
+
+            <div>
+
+                <div class="inventory-eyebrow">
+                    DOCKER ENVIRONMENT
+                </div>
+
+                <h1>
+                    Inventory
+                </h1>
+
+                <p>
+                    Complete visibility of your Docker
+                    containers, images, volumes and networks.
+                </p>
+
+            </div>
+
+
+            <button
+                class="refresh-btn"
+                onclick="loadInventory()">
+
+                <span class="refresh-icon">↻</span>
+
+                Refresh
+
+            </button>
+
+        </section>
+
+
+        <!-- ================= SUMMARY CARDS ================= -->
+
+        <section class="inventory-summary">
+
+            <div class="inventory-card">
+
+                <div class="inventory-card-icon containers-icon">
+                    ◇
+                </div>
+
+                <div>
+
+                    <span>Containers</span>
+
+                    <strong id="container-count">
+                        --
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <div class="inventory-card">
+
+                <div class="inventory-card-icon images-icon">
+                    ▦
+                </div>
+
+                <div>
+
+                    <span>Images</span>
+
+                    <strong id="image-count">
+                        --
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <div class="inventory-card">
+
+                <div class="inventory-card-icon volumes-icon">
+                    ▱
+                </div>
+
+                <div>
+
+                    <span>Volumes</span>
+
+                    <strong id="volume-count">
+                        --
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <div class="inventory-card">
+
+                <div class="inventory-card-icon networks-icon">
+                    ◎
+                </div>
+
+                <div>
+
+                    <span>Networks</span>
+
+                    <strong id="network-count">
+                        --
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= DOCKER VERSION ================= -->
+
+        <section class="docker-version">
+
+            <div>
+
+                <span class="section-label">
+                    DOCKER ENGINE
+                </span>
+
+                <strong id="docker-version">
+                    Loading...
+                </strong>
+
+            </div>
+
+
+            <div class="connection-status">
+
+                <span></span>
+
+                Connected
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= CONTAINERS ================= -->
+
+        <section class="inventory-section">
+
+            <div class="section-heading">
+
+                <div>
+
+                    <span class="section-label">
+                        RUNTIME
+                    </span>
+
+                    <h2>
+                        Containers
+                    </h2>
+
+                </div>
+
+                <span
+                    id="container-status"
+                    class="section-count">
+                    --
+                </span>
+
+            </div>
+
+
+            <div class="table-container">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>Name</th>
+                            <th>Status</th>
+                            <th>Image</th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody id="containers-table">
+
+                        <tr>
+
+                            <td colspan="3"
+                                class="loading-cell">
+
+                                Loading containers...
+
+                            </td>
+
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= IMAGES ================= -->
+
+        <section class="inventory-section">
+
+            <div class="section-heading">
+
+                <div>
+
+                    <span class="section-label">
+                        STORAGE
+                    </span>
+
+                    <h2>
+                        Images
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+            <div class="table-container">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>Repository</th>
+                            <th>Tag</th>
+                            <th>Size</th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody id="images-table">
+
+                        <tr>
+
+                            <td colspan="3"
+                                class="loading-cell">
+
+                                Loading images...
+
+                            </td>
+
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= VOLUMES ================= -->
+
+        <section class="inventory-section">
+
+            <div class="section-heading">
+
+                <div>
+
+                    <span class="section-label">
+                        PERSISTENT DATA
+                    </span>
+
+                    <h2>
+                        Volumes
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+            <div
+                id="volumes-list"
+                class="resource-list">
+
+                <div class="loading-cell">
+                    Loading volumes...
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= NETWORKS ================= -->
+
+        <section class="inventory-section">
+
+            <div class="section-heading">
+
+                <div>
+
+                    <span class="section-label">
+                        CONNECTIVITY
+                    </span>
+
+                    <h2>
+                        Networks
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+            <div
+                id="networks-list"
+                class="resource-list">
+
+                <div class="loading-cell">
+                    Loading networks...
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <div
+            id="inventory-error"
+            class="inventory-error">
+        </div>
+
+    </main>
+
+
+    <!-- ================= JAVASCRIPT ================= -->
+
+    <script
+        src="{{ url_for('static', filename='js/app.js') }}">
+    </script>
+
+    <script
+        src="{{ url_for('static', filename='js/inventory.js') }}">
+    </script>
+
+</body>
+
+</html>

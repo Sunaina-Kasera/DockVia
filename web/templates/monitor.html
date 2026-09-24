@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Monitor | DockVia</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/monitor.css') }}">
+</head>
+
+<body>
+
+    <!-- HEADER -->
+
+    <header class="topbar">
+
+        <a href="/" class="brand">
+
+            <div class="brand-logo">
+                <span></span>
+            </div>
+
+            <span>DockVia</span>
+
+        </a>
+
+
+        <div class="top-actions">
+
+            <button
+                class="icon-btn"
+                onclick="toggleSearch()"
+                aria-label="Search">
+
+                <span class="search-icon"></span>
+
+            </button>
+
+
+            <button
+                class="icon-btn menu-trigger"
+                onclick="toggleMenu()"
+                aria-label="Menu">
+
+                <span></span>
+                <span></span>
+                <span></span>
+
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <!-- SEARCH -->
+
+    <div id="search-box" class="search-box">
+
+        <input
+            id="search-input"
+            type="text"
+            placeholder="Search containers..."
+        >
+
+    </div>
+
+
+    <!-- SIDE MENU -->
+
+    <aside id="side-menu" class="side-menu">
+
+        <div class="menu-header">
+
+            <div class="menu-brand">
+
+                <div class="brand-logo small">
+                    <span></span>
+                </div>
+
+                <span>DockVia</span>
+
+            </div>
+
+
+            <button
+                class="close-menu"
+                onclick="closeMenu()">
+
+                ×
+
+            </button>
+
+        </div>
+
+
+        <nav class="menu-nav">
+
+            <a href="/inventory" onclick="closeMenu()">
+                <span class="nav-icon inventory-icon"></span>
+                <span>Inventory</span>
+            </a>
+
+            <a href="/monitor" onclick="closeMenu()">
+                <span class="nav-icon monitor-icon"></span>
+                <span>Monitor</span>
+            </a>
+
+            <a href="/analyzer" onclick="closeMenu()">
+                <span class="nav-icon analyzer-icon"></span>
+                <span>Analyzer</span>
+            </a>
+
+            <a href="/security" onclick="closeMenu()">
+                <span class="nav-icon security-icon"></span>
+                <span>Security</span>
+            </a>
+
+            <a href="/recovery" onclick="closeMenu()">
+                <span class="nav-icon recovery-icon"></span>
+                <span>Recovery</span>
+            </a>
+
+            <a href="/reports" onclick="closeMenu()">
+                <span class="nav-icon reports-icon"></span>
+                <span>Reports</span>
+            </a>
+
+        </nav>
+
+    </aside>
+
+
+    <!-- OVERLAY -->
+
+    <div
+        id="overlay"
+        class="overlay"
+        onclick="closeMenu()">
+    </div>
+
+
+    <!-- MONITOR -->
+
+    <main class="monitor-page">
+
+
+        <!-- PAGE HEADER -->
+
+        <section class="monitor-header">
+
+            <div>
+
+                <div class="monitor-eyebrow">
+                    DOCKER OBSERVABILITY
+                </div>
+
+                <h1>
+                    Monitor
+                </h1>
+
+                <p>
+                    Track container activity, resource usage
+                    and Docker system health in real time.
+                </p>
+
+            </div>
+
+
+            <div class="live-indicator">
+
+                <span></span>
+
+                Live monitoring
+
+            </div>
+
+        </section>
+
+
+        <!-- SUMMARY -->
+
+        <section class="monitor-summary">
+
+
+            <div class="monitor-card">
+
+                <div class="monitor-card-top">
+
+                    <span>RUNNING</span>
+
+                    <div class="monitor-icon running-icon">
+                        ●
+                    </div>
+
+                </div>
+
+                <strong id="running-count">
+                    --
+                </strong>
+
+                <small>
+                    active containers
+                </small>
+
+            </div>
+
+
+            <div class="monitor-card">
+
+                <div class="monitor-card-top">
+
+                    <span>STOPPED</span>
+
+                    <div class="monitor-icon stopped-icon">
+                        ■
+                    </div>
+
+                </div>
+
+                <strong id="stopped-count">
+                    --
+                </strong>
+
+                <small>
+                    inactive containers
+                </small>
+
+            </div>
+
+
+            <div class="monitor-card">
+
+                <div class="monitor-card-top">
+
+                    <span>CPU</span>
+
+                    <div class="monitor-icon cpu-icon">
+                        ◌
+                    </div>
+
+                </div>
+
+                <strong id="cpu-total">
+                    --
+                </strong>
+
+                <small>
+                    current usage
+                </small>
+
+            </div>
+
+
+            <div class="monitor-card">
+
+                <div class="monitor-card-top">
+
+                    <span>MEMORY</span>
+
+                    <div class="monitor-icon memory-icon">
+                        ▥
+                    </div>
+
+                </div>
+
+                <strong id="memory-total">
+                    --
+                </strong>
+
+                <small>
+                    active usage
+                </small>
+
+            </div>
+
+
+        </section>
+
+
+        <!-- RESOURCE MONITOR -->
+
+        <section class="monitor-section">
+
+            <div class="monitor-section-heading">
+
+                <div>
+
+                    <span class="section-label">
+                        LIVE RESOURCES
+                    </span>
+
+                    <h2>
+                        Container Activity
+                    </h2>
+
+                </div>
+
+
+                <span
+                    id="last-updated"
+                    class="last-updated">
+
+                    Updating...
+
+                </span>
+
+            </div>
+
+
+            <div class="monitor-table-container">
+
+                <table class="monitor-table">
+
+                    <thead>
+
+                        <tr>
+
+                            <th>Container</th>
+
+                            <th>CPU</th>
+
+                            <th>Memory</th>
+
+                            <th>Memory %</th>
+
+                            <th>Network I/O</th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody id="resource-table">
+
+                        <tr>
+
+                            <td
+                                colspan="5"
+                                class="loading-cell">
+
+                                Loading Docker resources...
+
+                            </td>
+
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+
+        <!-- DOCKER DISK -->
+
+        <section class="monitor-section">
+
+            <div class="monitor-section-heading">
+
+                <div>
+
+                    <span class="section-label">
+                        STORAGE
+                    </span>
+
+                    <h2>
+                        Docker Disk Usage
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+            <div
+                id="disk-output"
+                class="disk-output">
+
+                Loading Docker disk usage...
+
+            </div>
+
+        </section>
+
+
+        <!-- STATUS -->
+
+        <section class="monitor-status">
+
+            <div class="status-dot"></div>
+
+            <div>
+
+                <strong>
+                    Docker monitoring active
+                </strong>
+
+                <span>
+                    Resource data refreshes automatically every 5 seconds.
+                </span>
+
+            </div>
+
+        </section>
+
+
+        <div
+            id="monitor-error"
+            class="monitor-error">
+        </div>
+
+
+    </main>
+
+
+    <script
+        src="{{ url_for('static', filename='js/app.js') }}">
+    </script>
+
+    <script
+        src="{{ url_for('static', filename='js/monitor.js') }}">
+    </script>
+
+</body>
+
+</html>

@@ -1,236 +1,2076 @@
+/* =========================================================
+   DOCKVIA — MAIN STYLES
+========================================================= */
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-body {
-    font-family: Arial, sans-serif;
-    background: #0f172a;
-    color: #e2e8f0;
+
+/* =========================================================
+   VARIABLES
+========================================================= */
+
+:root {
+
+    --cream: #f3f0e6;
+    --cream-light: #faf9f3;
+
+    --olive: #66734a;
+    --olive-dark: #3f4930;
+    --olive-light: #dce2cd;
+
+    --olive-soft: #89966c;
+
+    --text: #25291f;
+    --muted: #777c6d;
+
+    --border: #d8dccb;
+
+    --green: #718d4f;
+    --red: #a36c50;
+
 }
+
+
+/* =========================================================
+   PAGE
+========================================================= */
+
+html,
+body {
+
+    width: 100%;
+    height: 100%;
+
+}
+
+
+body {
+
+    min-height: 100vh;
+
+    overflow: hidden;
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    background: var(--cream);
+
+    color: var(--text);
+
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
 
 .topbar {
-    padding: 24px 40px;
-    background: #111827;
-    border-bottom: 1px solid #334155;
+
+    height: 76px;
+
+    padding: 0 42px;
 
     display: flex;
-    justify-content: space-between;
+
     align-items: center;
-}
 
-.topbar h1 {
-    font-size: 28px;
-}
+    justify-content: space-between;
 
-.topbar p {
-    color: #94a3b8;
-    margin-top: 5px;
-}
+    border-bottom:
+        1px solid var(--border);
 
-.status {
-    color: #94a3b8;
-}
-
-.dot {
-    display: inline-block;
-    width: 9px;
-    height: 9px;
-    background: #22c55e;
-    border-radius: 50%;
-    margin-right: 6px;
-}
-
-.dashboard {
-    padding: 35px 40px;
-}
-
-.welcome {
-    margin-bottom: 30px;
-}
-
-.welcome h2 {
-    margin-bottom: 8px;
-}
-
-.welcome p {
-    color: #94a3b8;
 }
 
 
-/* SUMMARY CARDS */
+/* =========================================================
+   BRAND
+========================================================= */
 
-.cards {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
-    margin-bottom: 30px;
-}
+.brand {
 
-.card,
-.module,
-.resource-section,
-.result-section {
-    background: #111827;
-    border: 1px solid #334155;
-    border-radius: 12px;
-    padding: 22px;
-}
+    display: flex;
 
-.card h3,
-.module h3 {
-    margin-bottom: 15px;
-}
+    align-items: center;
 
-.value {
-    font-size: 32px;
-    font-weight: bold;
-    margin-bottom: 5px;
-}
+    gap: 11px;
 
-.card p,
-.module p {
-    color: #94a3b8;
+    font-size: 23px;
+
+    font-weight: 700;
+
+    color: var(--olive-dark);
+
 }
 
 
-/* MODULES */
+/* =========================================================
+   BRAND LOGO
+========================================================= */
 
-.modules {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-    margin-bottom: 30px;
+.brand-logo {
+
+    width: 35px;
+    height: 35px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background: var(--olive);
+
+    border-radius: 9px;
+
 }
 
-.module button {
-    margin-top: 20px;
-    padding: 10px 16px;
+
+.brand-logo span {
+
+    width: 14px;
+    height: 14px;
+
+    display: block;
+
+    border:
+        5px solid var(--cream-light);
+
+    transform: rotate(45deg);
+
+}
+
+
+.brand-logo.small {
+
+    width: 31px;
+    height: 31px;
+
+}
+
+
+.brand-logo.small span {
+
+    width: 12px;
+    height: 12px;
+
+    border-width: 4px;
+
+}
+
+
+/* =========================================================
+   TOP ACTIONS
+========================================================= */
+
+.top-actions {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+}
+
+
+.icon-btn {
+
+    width: 43px;
+    height: 43px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
     border: none;
-    border-radius: 7px;
-    background: #2563eb;
-    color: white;
+
+    border-radius: 10px;
+
+    background: transparent;
+
     cursor: pointer;
-}
 
-.module button:hover {
-    background: #1d4ed8;
 }
 
 
-/* RESOURCE MONITORING */
+.icon-btn:hover {
 
-.resource-section {
-    margin-bottom: 30px;
-}
+    background: var(--olive-light);
 
-.section-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-}
-
-.section-header h2 {
-    margin-bottom: 6px;
-}
-
-.section-header p {
-    color: #94a3b8;
-}
-
-.live-badge {
-    color: #22c55e;
-    font-size: 13px;
-    font-weight: bold;
 }
 
 
-/* TABLE */
+/* =========================================================
+   SEARCH ICON
+========================================================= */
 
-.table-wrapper {
-    overflow-x: auto;
+.search-icon {
+
+    width: 16px;
+    height: 16px;
+
+    position: relative;
+
+    border:
+        2px solid var(--olive-dark);
+
+    border-radius: 50%;
+
 }
 
-table {
-    width: 100%;
-    border-collapse: collapse;
+
+.search-icon::after {
+
+    content: "";
+
+    position: absolute;
+
+    width: 7px;
+    height: 2px;
+
+    right: -5px;
+    bottom: -2px;
+
+    background: var(--olive-dark);
+
+    transform: rotate(45deg);
+
+    border-radius: 3px;
+
 }
 
-thead {
-    background: #020617;
+
+/* =========================================================
+   HAMBURGER
+========================================================= */
+
+.menu-trigger {
+
+    flex-direction: column;
+
+    gap: 5px;
+
 }
 
-th,
-td {
-    padding: 14px 16px;
-    text-align: left;
-    border-bottom: 1px solid #334155;
+
+.menu-trigger span {
+
+    width: 21px;
+    height: 2px;
+
+    background: var(--olive-dark);
+
+    border-radius: 4px;
+
 }
 
-th {
-    color: #94a3b8;
-    font-size: 13px;
-    text-transform: uppercase;
+
+/* =========================================================
+   SEARCH BOX
+========================================================= */
+
+.search-box {
+
+    position: fixed;
+
+    top: 88px;
+    right: 42px;
+
+    display: none;
+
+    z-index: 500;
+
 }
 
-td {
+
+.search-box.active {
+
+    display: block;
+
+}
+
+
+.search-box input {
+
+    width: 315px;
+
+    padding: 13px 16px;
+
+    border:
+        1px solid var(--border);
+
+    border-radius: 10px;
+
+    outline: none;
+
+    background: var(--cream-light);
+
+    color: var(--text);
+
     font-size: 14px;
+
+    box-shadow:
+        0 10px 30px
+        rgba(63, 73, 48, .12);
+
 }
 
-tbody tr:hover {
-    background: #1e293b;
+
+.search-box input:focus {
+
+    border-color: var(--olive);
+
 }
 
 
-/* MODULE OUTPUT */
+/* =========================================================
+   SIDE MENU
+========================================================= */
 
-.result-section {
-    margin-top: 30px;
+.side-menu {
+
+    position: fixed;
+
+    top: 15px;
+
+    right: -315px;
+
+    width: 295px;
+
+    height: calc(100vh - 30px);
+
+    padding: 25px 22px;
+
+    z-index: 1000;
+
+    background: var(--cream-light);
+
+    border:
+        1px solid var(--border);
+
+    border-radius:
+        22px 0 0 22px;
+
+    box-shadow:
+        -15px 0 40px
+        rgba(63, 73, 48, .10);
+
+    transition:
+        right .3s ease;
+
 }
 
-.result-section h2 {
-    margin-bottom: 15px;
+
+.side-menu.active {
+
+    right: 15px;
+
 }
 
-#result {
-    background: #020617;
-    border: 1px solid #334155;
+
+/* =========================================================
+   MENU HEADER
+========================================================= */
+
+.menu-header {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    padding-bottom: 20px;
+
+    border-bottom:
+        1px solid var(--border);
+
+}
+
+
+.menu-brand {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    font-size: 20px;
+
+    font-weight: 700;
+
+    color: var(--olive-dark);
+
+}
+
+
+.close-menu {
+
+    width: 35px;
+    height: 35px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border: none;
+
+    background: transparent;
+
+    color: var(--olive-dark);
+
+    font-size: 28px;
+
+    cursor: pointer;
+
+    border-radius: 8px;
+
+}
+
+
+.close-menu:hover {
+
+    background: var(--olive-light);
+
+}
+
+
+/* =========================================================
+   MENU NAVIGATION
+========================================================= */
+
+.menu-nav {
+
+    margin-top: 22px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 5px;
+
+}
+
+
+.menu-nav a {
+
+    height: 52px;
+
+    padding: 0 13px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+    text-decoration: none;
+
+    color: var(--text);
+
+    font-size: 15px;
+
+    border-radius: 11px;
+
+    transition:
+        background .2s ease,
+        transform .2s ease,
+        color .2s ease;
+
+}
+
+
+.menu-nav a:hover {
+
+    background: var(--olive-light);
+
+    color: var(--olive-dark);
+
+    transform: translateX(3px);
+
+}
+
+
+/* =========================================================
+   MENU ICON BASE
+========================================================= */
+
+.nav-icon {
+
+    width: 23px;
+    height: 23px;
+
+    position: relative;
+
+    display: block;
+
+    flex-shrink: 0;
+
+    color: var(--olive);
+
+}
+
+
+/* =========================================================
+   INVENTORY ICON
+========================================================= */
+
+.inventory-icon {
+
+    border:
+        1.7px solid var(--olive);
+
+    border-radius: 4px;
+
+}
+
+
+.inventory-icon::before {
+
+    content: "";
+
+    position: absolute;
+
+    width: 8px;
+    height: 7px;
+
+    left: 5px;
+    top: 5px;
+
+    border:
+        1.5px solid var(--olive);
+
+    border-radius: 2px;
+
+}
+
+
+.inventory-icon::after {
+
+    content: "";
+
+    position: absolute;
+
+    width: 8px;
+    height: 1.5px;
+
+    left: 5px;
+    bottom: 4px;
+
+    background: var(--olive);
+
+}
+
+
+/* =========================================================
+   MONITOR ICON
+========================================================= */
+
+.monitor-icon {
+
+    border:
+        1.8px solid var(--olive);
+
+    border-radius: 4px;
+
+}
+
+
+.monitor-icon::before {
+
+    content: "";
+
+    position: absolute;
+
+    width: 11px;
+    height: 6px;
+
+    left: 5px;
+    top: 7px;
+
+    border-left:
+        2px solid var(--olive);
+
+    border-bottom:
+        2px solid var(--olive);
+
+    transform:
+        skewY(-30deg);
+
+}
+
+
+.monitor-icon::after {
+
+    content: "";
+
+    position: absolute;
+
+    width: 7px;
+    height: 2px;
+
+    left: 7px;
+    bottom: -5px;
+
+    background: var(--olive);
+
+}
+
+
+/* =========================================================
+   ANALYZER ICON
+========================================================= */
+
+.analyzer-icon {
+
+    border:
+        2px solid var(--olive);
+
+    border-radius: 50%;
+
+}
+
+
+.analyzer-icon::before {
+
+    content: "";
+
+    position: absolute;
+
+    width: 6px;
+    height: 6px;
+
+    left: 6px;
+    top: 6px;
+
+    border:
+        2px solid var(--olive);
+
+    border-radius: 50%;
+
+}
+
+
+.analyzer-icon::after {
+
+    content: "";
+
+    position: absolute;
+
+    width: 6px;
+    height: 2px;
+
+    right: -5px;
+    bottom: 1px;
+
+    background: var(--olive);
+
+    transform: rotate(45deg);
+
+}
+
+
+/* =========================================================
+   SECURITY ICON
+========================================================= */
+
+.security-icon {
+
+    width: 19px;
+
+    border:
+        2px solid var(--olive);
+
+    border-radius:
+        50% 50% 45% 45%;
+
+    margin-left: 2px;
+
+}
+
+
+.security-icon::after {
+
+    content: "✓";
+
+    position: absolute;
+
+    left: 4px;
+    top: 1px;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+}
+
+
+/* =========================================================
+   RECOVERY ICON
+========================================================= */
+
+.recovery-icon {
+
+    width: 22px;
+    height: 22px;
+
+    border:
+        2px solid var(--olive);
+
+    border-right-color: transparent;
+
+    border-radius: 50%;
+
+}
+
+
+.recovery-icon::after {
+
+    content: "";
+
+    position: absolute;
+
+    right: -2px;
+    top: -1px;
+
+    width: 7px;
+    height: 7px;
+
+    border-top:
+        2px solid var(--olive);
+
+    border-right:
+        2px solid var(--olive);
+
+    transform: rotate(30deg);
+
+}
+
+
+/* =========================================================
+   REPORTS ICON
+========================================================= */
+
+.reports-icon {
+
+    border:
+        2px solid var(--olive);
+
+    border-radius: 3px;
+
+}
+
+
+.reports-icon::before {
+
+    content: "";
+
+    position: absolute;
+
+    width: 11px;
+    height: 2px;
+
+    left: 4px;
+    top: 6px;
+
+    background: var(--olive);
+
+    box-shadow:
+        0 5px var(--olive),
+        0 10px var(--olive);
+
+}
+
+
+/* =========================================================
+   OVERLAY
+========================================================= */
+
+.overlay {
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 900;
+
+    display: none;
+
+    background:
+        rgba(37, 41, 31, .18);
+
+    backdrop-filter:
+        blur(3px);
+
+}
+
+
+.overlay.active {
+
+    display: block;
+
+}
+
+
+/* =========================================================
+   MAIN HOME
+========================================================= */
+
+.home {
+
+    height:
+        calc(100vh - 76px);
+
+    padding:
+        30px 7vw 25px;
+
+    display: grid;
+
+    grid-template-columns:
+        .9fr 1.1fr;
+
+    grid-template-rows:
+        1fr auto;
+
+    column-gap: 20px;
+
+    align-items: center;
+
+}
+
+
+/* =========================================================
+   HERO TEXT
+========================================================= */
+
+.hero-text {
+
+    padding-left: 10px;
+
+}
+
+
+.eyebrow {
+
+    margin-bottom: 20px;
+
+    color: var(--olive);
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    letter-spacing: 4px;
+
+}
+
+
+.title-row {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 18px;
+
+}
+
+
+.hero-text h1 {
+
+    color: var(--olive-dark);
+
+    font-size:
+        clamp(65px, 7.5vw, 105px);
+
+    line-height: .9;
+
+    letter-spacing: -6px;
+
+}
+
+
+.hero-logo {
+
+    width: 46px;
+    height: 46px;
+
+    margin-top: 12px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background: var(--olive);
+
     border-radius: 12px;
-    padding: 20px;
-    min-height: 180px;
-    white-space: pre-wrap;
-    overflow-x: auto;
-    color: #cbd5e1;
-    font-family: monospace;
+
 }
 
 
-/* RESPONSIVE */
+.hero-logo span {
+
+    width: 17px;
+    height: 17px;
+
+    display: block;
+
+    border:
+        5px solid var(--cream-light);
+
+    transform: rotate(45deg);
+
+}
+
+
+.hero-text h2 {
+
+    margin-top: 21px;
+
+    color: var(--olive-dark);
+
+    font-size: 25px;
+
+    font-weight: 600;
+
+}
+
+
+.hero-text h2 span {
+
+    color: var(--olive);
+
+}
+
+
+.hero-text p {
+
+    max-width: 440px;
+
+    margin-top: 16px;
+
+    color: var(--muted);
+
+    font-size: 15px;
+
+    line-height: 1.7;
+
+}
+
+
+.hero-line {
+
+    width: 60px;
+    height: 4px;
+
+    margin-top: 25px;
+
+    background: var(--olive);
+
+    border-radius: 5px;
+
+}
+
+
+/* =========================================================
+   DOCKER SCENE
+========================================================= */
+
+.docker-scene {
+
+    position: relative;
+
+    height: 430px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+}
+
+
+/* =========================================================
+   STATIC DOCKER WHALE
+========================================================= */
+
+.docker-whale {
+
+    position: absolute;
+
+    width: 310px;
+    height: 190px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    z-index: 20;
+
+}
+
+
+/* SVG */
+
+.docker-whale svg {
+
+    width: 100%;
+    height: 100%;
+
+    overflow: visible;
+
+}
+
+
+/* whale body */
+
+.whale-body {
+
+    fill: var(--olive);
+
+}
+
+
+/* whale tail */
+
+.whale-tail {
+
+    fill: var(--olive);
+
+}
+
+
+/* containers sitting on whale */
+
+.whale-containers rect {
+
+    fill: #78855b;
+
+    stroke:
+        rgba(250, 249, 243, .65);
+
+    stroke-width: 2;
+
+}
+
+
+/* whale eye */
+
+.whale-eye {
+
+    fill: var(--cream);
+
+}
+
+
+/* =========================================================
+   ORBIT SYSTEM
+========================================================= */
+
+.orbit-system {
+
+    position: absolute;
+
+    top: 50%;
+    left: 50%;
+
+    border-radius: 50%;
+
+    pointer-events: none;
+
+}
+
+
+/* =========================================================
+   OUTER ORBIT
+========================================================= */
+
+.orbit-system-outer {
+
+    width: 365px;
+    height: 365px;
+
+    margin-left: -182.5px;
+    margin-top: -182.5px;
+
+    border:
+        1px solid
+        rgba(102, 115, 74, .28);
+
+    animation:
+        outerOrbit
+        22s
+        linear
+        infinite;
+
+}
+
+
+/* =========================================================
+   MIDDLE ORBIT
+========================================================= */
+
+.orbit-system-middle {
+
+    width: 285px;
+    height: 285px;
+
+    margin-left: -142.5px;
+    margin-top: -142.5px;
+
+    border:
+        1px solid
+        rgba(102, 115, 74, .20);
+
+    animation:
+        middleOrbit
+        17s
+        linear
+        infinite;
+
+}
+
+
+/* =========================================================
+   INNER ORBIT
+========================================================= */
+
+.orbit-system-inner {
+
+    width: 210px;
+    height: 210px;
+
+    margin-left: -105px;
+    margin-top: -105px;
+
+    border:
+        1px solid
+        rgba(102, 115, 74, .15);
+
+    animation:
+        innerOrbit
+        12s
+        linear
+        infinite;
+
+}
+
+
+/* =========================================================
+   ORBITING RECTANGLE
+========================================================= */
+
+.orbit-marker {
+
+    position: absolute;
+
+    top: -5px;
+    left: 50%;
+
+    width: 20px;
+    height: 9px;
+
+    transform:
+        translateX(-50%);
+
+    background: var(--olive);
+
+    border:
+        1px solid
+        rgba(250, 249, 243, .75);
+
+    border-radius: 3px;
+
+    box-shadow:
+        0 0 10px
+        rgba(102, 115, 74, .25);
+
+}
+
+
+/* middle marker */
+
+.orbit-system-middle .orbit-marker {
+
+    width: 17px;
+    height: 8px;
+
+    background:
+        #7b8760;
+
+}
+
+
+/* inner marker */
+
+.orbit-system-inner .orbit-marker {
+
+    width: 14px;
+    height: 7px;
+
+    background:
+        #89966c;
+
+}
+
+
+/* =========================================================
+   ORBIT ANIMATIONS
+========================================================= */
+
+@keyframes outerOrbit {
+
+    from {
+
+        transform: rotate(0deg);
+
+    }
+
+    to {
+
+        transform: rotate(360deg);
+
+    }
+
+}
+
+
+@keyframes middleOrbit {
+
+    from {
+
+        transform: rotate(360deg);
+
+    }
+
+    to {
+
+        transform: rotate(0deg);
+
+    }
+
+}
+
+
+@keyframes innerOrbit {
+
+    from {
+
+        transform: rotate(0deg);
+
+    }
+
+    to {
+
+        transform: rotate(360deg);
+
+    }
+
+}
+
+
+/* =========================================================
+   FLOATING INFORMATION CARDS
+========================================================= */
+
+.floating-card {
+
+    position: absolute;
+
+    z-index: 30;
+
+    padding: 11px 13px;
+
+    background:
+        rgba(250, 249, 243, .90);
+
+    border:
+        1px solid
+        rgba(216, 220, 203, .95);
+
+    border-radius: 11px;
+
+    box-shadow:
+        0 10px 25px
+        rgba(63, 73, 48, .10);
+
+    backdrop-filter:
+        blur(7px);
+
+    color: var(--olive-dark);
+
+}
+
+
+/* =========================================================
+   TERMINAL CARD
+========================================================= */
+
+.terminal-card {
+
+    top: 45px;
+    left: 7%;
+
+    width: 140px;
+
+    animation:
+        cardFloat
+        5s
+        ease-in-out
+        infinite;
+
+}
+
+
+.card-dots {
+
+    display: flex;
+
+    gap: 4px;
+
+    margin-bottom: 7px;
+
+}
+
+
+.card-dots i {
+
+    width: 5px;
+    height: 5px;
+
+    background: var(--olive);
+
+    border-radius: 50%;
+
+    opacity: .55;
+
+}
+
+
+.terminal-line {
+
+    font-family: monospace;
+
+    font-size: 9px;
+
+    line-height: 1.6;
+
+}
+
+
+.terminal-line.green {
+
+    color: var(--green);
+
+}
+
+
+.terminal-small {
+
+    color: var(--muted);
+
+    font-family: monospace;
+
+    font-size: 8px;
+
+}
+
+
+/* =========================================================
+   SECURITY CARD
+========================================================= */
+
+.security-card {
+
+    top: 65px;
+    right: 7%;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 9px;
+
+    animation:
+        cardFloat
+        4.5s
+        ease-in-out
+        infinite;
+
+    animation-delay: .5s;
+
+}
+
+
+.security-card .security-icon {
+
+    width: 28px;
+    height: 28px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background: var(--olive-light);
+
+    color: var(--olive-dark);
+
+    border-radius: 8px;
+
+    font-weight: 700;
+
+}
+
+
+.floating-card strong {
+
+    display: block;
+
+    font-size: 9px;
+
+    letter-spacing: 1px;
+
+}
+
+
+.floating-card small {
+
+    display: block;
+
+    margin-top: 3px;
+
+    color: var(--muted);
+
+    font-size: 8px;
+
+}
+
+
+/* =========================================================
+   MONITOR CARD
+========================================================= */
+
+.monitor-card {
+
+    right: 5%;
+    bottom: 83px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 9px;
+
+    animation:
+        cardFloat
+        5s
+        ease-in-out
+        infinite;
+
+    animation-delay: 1s;
+
+}
+
+
+.bars {
+
+    height: 25px;
+
+    display: flex;
+
+    align-items: flex-end;
+
+    gap: 3px;
+
+}
+
+
+.bars i {
+
+    width: 4px;
+
+    background: var(--olive);
+
+    border-radius: 4px;
+
+}
+
+
+.bars i:nth-child(1) {
+    height: 9px;
+}
+
+
+.bars i:nth-child(2) {
+    height: 15px;
+}
+
+
+.bars i:nth-child(3) {
+    height: 23px;
+}
+
+
+.bars i:nth-child(4) {
+    height: 13px;
+}
+
+
+/* =========================================================
+   CONTAINER CARD
+========================================================= */
+
+.cube-card {
+
+    left: 9%;
+    bottom: 42px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 9px;
+
+    animation:
+        cardFloat
+        4.8s
+        ease-in-out
+        infinite;
+
+    animation-delay: .8s;
+
+}
+
+
+.cube-icon {
+
+    width: 28px;
+    height: 28px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background: var(--olive-light);
+
+    color: var(--olive-dark);
+
+    border-radius: 8px;
+
+}
+
+
+/* =========================================================
+   CARD ANIMATION
+========================================================= */
+
+@keyframes cardFloat {
+
+    0%,
+    100% {
+
+        transform:
+            translateY(0);
+
+    }
+
+    50% {
+
+        transform:
+            translateY(-8px);
+
+    }
+
+}
+
+
+/* =========================================================
+   DOCKER ENGINE STATUS
+========================================================= */
+
+.engine-status {
+
+    position: absolute;
+
+    left: 50%;
+    bottom: 30px;
+
+    transform:
+        translateX(-50%);
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+    color: var(--muted);
+
+    font-size: 10px;
+
+    white-space: nowrap;
+
+}
+
+
+.engine-status > span:first-child {
+
+    width: 7px;
+    height: 7px;
+
+    flex-shrink: 0;
+
+    background: var(--green);
+
+    border-radius: 50%;
+
+    animation:
+        statusPulse
+        2s
+        infinite;
+
+}
+
+
+.engine-status strong {
+
+    color: var(--olive-dark);
+
+}
+
+
+@keyframes statusPulse {
+
+    0%,
+    100% {
+
+        box-shadow:
+            0 0 0 3px
+            rgba(113, 141, 79, .12);
+
+    }
+
+    50% {
+
+        box-shadow:
+            0 0 0 7px
+            rgba(113, 141, 79, .02);
+
+    }
+
+}
+
+
+/* =========================================================
+   STATUS BAR
+========================================================= */
+
+.status-bar {
+
+    grid-column: 1 / -1;
+
+    width:
+        min(900px, 100%);
+
+    margin:
+        0 auto;
+
+    padding:
+        17px 28px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-around;
+
+    background:
+        rgba(250, 249, 243, .72);
+
+    border:
+        1px solid var(--border);
+
+    border-radius: 18px;
+
+    box-shadow:
+        0 10px 25px
+        rgba(63, 73, 48, .06);
+
+    backdrop-filter:
+        blur(6px);
+
+}
+
+
+/* =========================================================
+   STATUS ITEM
+========================================================= */
+
+.status-item {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+}
+
+
+.status-item small {
+
+    display: block;
+
+    margin-bottom: 3px;
+
+    color: var(--muted);
+
+    font-size: 10px;
+
+}
+
+
+.status-item strong {
+
+    display: block;
+
+    color: var(--text);
+
+    font-size: 17px;
+
+}
+
+
+/* =========================================================
+   STATUS DOTS
+========================================================= */
+
+.status-symbol {
+
+    width: 10px;
+    height: 10px;
+
+    flex-shrink: 0;
+
+    border-radius: 50%;
+
+}
+
+
+.status-symbol.running {
+
+    background: var(--green);
+
+}
+
+
+.status-symbol.stopped {
+
+    background: var(--red);
+
+}
+
+
+.status-symbol.images {
+
+    background: var(--olive);
+
+}
+
+
+.status-symbol.health {
+
+    width: auto;
+    height: auto;
+
+    color: var(--olive);
+
+    font-size: 17px;
+
+    border-radius: 0;
+
+}
+
+
+/* =========================================================
+   STATUS DIVIDER
+========================================================= */
+
+.status-divider {
+
+    width: 1px;
+    height: 35px;
+
+    background: var(--border);
+
+}
+
+
+/* =========================================================
+   RESPONSIVE — TABLET
+========================================================= */
 
 @media (max-width: 900px) {
 
-    .cards,
-    .modules {
-        grid-template-columns: 1fr 1fr;
+    body {
+
+        overflow-y: auto;
+
     }
+
+
+    .home {
+
+        height: auto;
+
+        min-height:
+            calc(100vh - 76px);
+
+        grid-template-columns: 1fr;
+
+        padding:
+            40px 25px;
+
+    }
+
+
+    .hero-text {
+
+        text-align: center;
+
+    }
+
+
+    .title-row {
+
+        justify-content: center;
+
+    }
+
+
+    .hero-text p {
+
+        margin-left: auto;
+        margin-right: auto;
+
+    }
+
+
+    .hero-line {
+
+        margin-left: auto;
+        margin-right: auto;
+
+    }
+
+
+    .docker-scene {
+
+        height: 390px;
+
+    }
+
 }
+
+
+/* =========================================================
+   RESPONSIVE — MOBILE
+========================================================= */
 
 @media (max-width: 600px) {
 
     .topbar {
+
+        padding:
+            0 18px;
+
+    }
+
+
+    .brand {
+
+        font-size: 20px;
+
+    }
+
+
+    .hero-text h1 {
+
+        font-size: 65px;
+
+        letter-spacing:
+            -4px;
+
+    }
+
+
+    .hero-logo {
+
+        width: 38px;
+        height: 38px;
+
+    }
+
+
+    .docker-scene {
+
+        height: 360px;
+
+        transform:
+            scale(.78);
+
+        margin:
+            -35px 0;
+
+    }
+
+
+    .status-bar {
+
+        padding:
+            14px 10px;
+
+    }
+
+
+    .status-item {
+
         flex-direction: column;
-        align-items: flex-start;
-        gap: 15px;
+
+        gap: 4px;
+
     }
 
-    .cards,
-    .modules {
-        grid-template-columns: 1fr;
+
+    .status-item small {
+
+        font-size: 8px;
+
     }
 
-    .dashboard {
-        padding: 25px 20px;
+
+    .status-item strong {
+
+        font-size: 14px;
+
+    }
+
+
+    .status-divider {
+
+        height: 35px;
+
+    }
+
+
+    .search-box {
+
+        right: 18px;
+
+    }
+
+
+    .search-box input {
+
+        width: 270px;
+
+    }
+
+
+    .side-menu {
+
+        width: 280px;
+
+    }
+
+}
+
+/* =========================================================
+   DOCKVIA MAIN HERO — STATIC WHALE ILLUSTRATION
+   No orbit / floating-card / whale animation
+========================================================= */
+
+.docker-scene {
+    position: relative;
+    height: 430px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.docker-whale {
+    position: relative;
+    width: min(560px, 88%);
+    height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 20;
+}
+
+.docker-whale img {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-height: 360px;
+    object-fit: contain;
+    animation: none !important;
+}
+
+.orbit-system,
+.floating-card {
+    display: none !important;
+    animation: none !important;
+}
+
+.engine-status {
+    bottom: 18px;
+}
+
+.engine-status > span:first-child {
+    animation: none !important;
+    box-shadow: none !important;
+}
+
+@media (max-width: 900px) {
+    .docker-scene {
+        height: 360px;
+    }
+
+    .docker-whale {
+        width: min(500px, 92%);
+    }
+}
+
+@media (max-width: 600px) {
+    .docker-scene {
+        height: 300px;
+    }
+
+    .docker-whale {
+        width: 94%;
+    }
+
+    .engine-status {
+        bottom: 8px;
     }
 }
